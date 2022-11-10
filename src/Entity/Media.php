@@ -19,6 +19,9 @@ class Media
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $caption = null;
 
+    #[ORM\ManyToOne(inversedBy: 'pictures')]
+    private ?Project $project = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,18 @@ class Media
     public function setCaption(?string $caption): self
     {
         $this->caption = $caption;
+
+        return $this;
+    }
+
+    public function getProject(): ?Project
+    {
+        return $this->project;
+    }
+
+    public function setProject(?Project $project): self
+    {
+        $this->project = $project;
 
         return $this;
     }
