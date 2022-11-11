@@ -2,23 +2,28 @@
 
 namespace App\Entity;
 
-use App\Repository\MediaRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\MediaRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
 class Media
 {
+    #[Groups("media")]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups("media")]
     #[ORM\Column(length: 255)]
     private ?string $url = null;
 
+    #[Groups("media")]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $caption = null;
 
+    #[Groups("media_details")]
     #[ORM\ManyToOne(inversedBy: 'pictures')]
     private ?Project $project = null;
 
