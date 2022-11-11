@@ -21,7 +21,7 @@ class TechnologyController extends AbstractController
         return new JsonResponse($json, Response::HTTP_OK, [], true);
     }
 
-    #[Route('/api/technology/{id}', name: 'api_technology', methods: ['GET'])]
+    #[Route('/api/technology/{slug}', name: 'api_technology', methods: ['GET'])]
     public function getTechnology(Technology $technology, SerializerInterface $serializer): JsonResponse
     {
         $json = $serializer->serialize($technology, 'json', ['groups' => ['technology', 'technology_details', 'project']]);

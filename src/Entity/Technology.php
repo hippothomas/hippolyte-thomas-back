@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TechnologyRepository;
 use Doctrine\Common\Collections\Collection;
@@ -9,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: TechnologyRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Technology
 {
     #[Groups("technology")]
@@ -20,6 +22,10 @@ class Technology
     #[Groups("technology")]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
+
+    #[Groups("technology")]
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
 
     #[Groups("technology_details")]
     #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'technologies')]
@@ -43,6 +49,28 @@ class Technology
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function initializeSlug(): void
+    {
+        if (empty($this->slug)) {
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->name);
+        }
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
