@@ -36,11 +36,11 @@ class Project
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[Groups("project")]
+    #[Groups("project_details")]
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: Media::class)]
     private Collection $pictures;
 
-    #[Groups("project")]
+    #[Groups("project_details")]
     #[ORM\ManyToMany(targetEntity: Technology::class, inversedBy: 'projects')]
     private Collection $technologies;
 

@@ -12,19 +12,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProjectController extends AbstractController
 {
-    #[Route('/api/projects', name: 'api_projects')]
+    #[Route('/api/projects', name: 'api_projects', methods: ['GET'])]
     public function getProjects(ProjectRepository $project, SerializerInterface $serializer): JsonResponse
     {
         $data = $project->findAll();
-        $json = $serializer->serialize($data, 'json', ['groups' => ['project', 'technology', 'media']]);
+        $json = $serializer->serialize($data, 'json', ['groups' => ['project', 'project_details', 'technology', 'media']]);
 
         return new JsonResponse($json, Response::HTTP_OK, [], true);
     }
     
-    #[Route('/api/project/{slug}', name: 'api_project')]
+    #[Route('/api/project/{slug}', name: 'api_project', methods: ['GET'])]
     public function getProject(Project $project, SerializerInterface $serializer): JsonResponse
     {
-        $json = $serializer->serialize($project, 'json', ['groups' => ['project', 'technology', 'media']]);
+        $json = $serializer->serialize($project, 'json', ['groups' => ['project', 'project_details', 'technology', 'media']]);
 
         return new JsonResponse($json, Response::HTTP_OK, [], true);
     }
