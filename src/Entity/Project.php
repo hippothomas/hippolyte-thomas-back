@@ -28,7 +28,7 @@ class Project
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: Media::class)]
     private Collection $pictures;
 
-    #[ORM\ManyToMany(targetEntity: technology::class, inversedBy: 'projects')]
+    #[ORM\ManyToMany(targetEntity: Technology::class, inversedBy: 'projects')]
     private Collection $technologies;
 
     public function __construct()
@@ -109,14 +109,14 @@ class Project
     }
 
     /**
-     * @return Collection<int, technology>
+     * @return Collection<int, Technology>
      */
     public function getTechnologies(): Collection
     {
         return $this->technologies;
     }
 
-    public function addTechnology(technology $technology): self
+    public function addTechnology(Technology $technology): self
     {
         if (!$this->technologies->contains($technology)) {
             $this->technologies->add($technology);
@@ -125,7 +125,7 @@ class Project
         return $this;
     }
 
-    public function removeTechnology(technology $technology): self
+    public function removeTechnology(Technology $technology): self
     {
         $this->technologies->removeElement($technology);
 
