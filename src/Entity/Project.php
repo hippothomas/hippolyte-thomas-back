@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Cocur\Slugify\Slugify;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ProjectRepository;
@@ -10,6 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Project
 {
     #[Groups("project")]
@@ -21,6 +23,10 @@ class Project
     #[Groups("project")]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
+
+    #[Groups("project")]
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
 
     #[Groups("project")]
     #[ORM\Column(length: 255)]
@@ -57,6 +63,28 @@ class Project
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function initializeSlug(): void
+    {
+        if (empty($this->slug)) {
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->name);
+        }
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

@@ -71,7 +71,7 @@ class AppFixtures extends Fixture
             }
 
             // Adding random pictures
-            for ($j=1; $j < mt_rand(1, 4); $j++) {
+            for ($j=1; $j <= mt_rand(1, 4); $j++) {
                 $picture = new Media();
                 $picture->setUrl('https://picsum.photos/id/'.mt_rand(1, 99).'/850/500')
                         ->setCaption($faker->sentence(10));

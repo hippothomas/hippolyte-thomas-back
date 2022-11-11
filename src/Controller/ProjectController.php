@@ -21,7 +21,7 @@ class ProjectController extends AbstractController
         return new JsonResponse($json, Response::HTTP_OK, [], true);
     }
     
-    #[Route('/api/project/{id}', name: 'api_project')]
+    #[Route('/api/project/{slug}', name: 'api_project')]
     public function getProject(Project $project, SerializerInterface $serializer): JsonResponse
     {
         $json = $serializer->serialize($project, 'json', ['groups' => ['project', 'technology', 'media']]);
