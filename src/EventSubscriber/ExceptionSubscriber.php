@@ -13,21 +13,26 @@ class ExceptionSubscriber implements EventSubscriberInterface
     public function onKernelException(ExceptionEvent $event): void
     {
         $exception = $event->getThrowable();
+        $request = $event->getRequest();
+        $path = $request->getPathInfo();
 
-        if ($exception instanceof HttpException) {
-            $data = [
-                'status' => $exception->getStatusCode(),
-                'message' => $exception->getMessage()
-            ];
-
-            $event->setResponse(new JsonResponse($data));
-        } else {
-            $data = [
-                'status' => 500, // return 500 by default when it's not an HTTP exception
-                'message' => $exception->getMessage()
-            ];
-
-            $event->setResponse(new JsonResponse($data));
+        // Verify if in API context
+        if (str_starts_with($path, "/api")) {
+            if ($exception instanceof HttpException) {
+                $data = [
+                    'status' => $exception->getStatusCode(),
+                    'message' => $exception->getMessage()
+                ];
+    
+                $event->setResponse(new JsonResponse($data));
+            } else {
+                $data = [
+                    'status' => 500, // return 500 by default when it's not an HTTP exception
+                    'message' => $exception->getMessage()
+                ];
+    
+                $event->setResponse(new JsonResponse($data));
+            }
         }
     }
 
