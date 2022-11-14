@@ -10,7 +10,7 @@
 					<a class="nav-link" href="#">Accueil</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">À propos</a>
+					<a class="nav-link" href="{{ path('admin_about_me') }}">À propos</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="#">Projets</a>
@@ -27,3 +27,14 @@
 		</div>
 	</div>
 </nav>
+
+{% for label, messages in app.flashes %}
+    <div class="container mt-5">
+		<div class="alert alert-dismissible alert-{{ label }}">
+			<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            {% for message in messages %}
+                <p class="mb-0">{{ message|raw }}</p>
+            {% endfor %}
+		</div>
+    </div>
+{% endfor %}
