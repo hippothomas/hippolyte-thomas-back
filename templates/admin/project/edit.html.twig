@@ -1,0 +1,24 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Administration du projet "{{project.name}}"{% endblock %}
+
+{% form_theme form 'admin/project/_technology.html.twig' %}
+{% form_theme form 'admin/project/_picture.html.twig' %}
+
+{% block body %}
+<div class="container mb-5">
+    <h1 class="my-5">Modification du projet : <strong>{{project.name}}</strong></h1>
+    
+    {{ form_start(form) }}
+
+    {{ form_widget(form) }}
+
+    <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+
+    {{ form_end(form) }}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="/js/admin/project.js"></script>
+{% endblock %}
