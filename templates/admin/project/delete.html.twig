@@ -1,0 +1,19 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Suppression du projet "{{project.name}}"{% endblock %}
+
+{% block body %}
+<div class="container mb-5">
+    <div class="card bg-light mb-3 my-5">
+        <div class="card-header">Suppression du projet : <strong>{{project.name}}</strong></div>
+        <div class="card-body">
+            <h4 class="card-title">Êtes-vous sûr de vouloir supprimer le projet "<strong>{{project.name}}</strong>" (ID: {{project.id}}) ?</h4>
+            <p class="card-text">En supprimant <strong>{{project.name}}</strong>, toutes les données de ce projet seront détruites. Cette action est irréversible, les données ne seront pas récupérable.</p>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+            <a href="{{ path('admin_projects') }}" class="btn btn-secondary">Annuler</a>
+            <a href="{{ path('admin_project_delete', {id: project.id, confirm: true}) }}" class="btn btn-danger">Supprimer</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -58,7 +58,7 @@ class AdminProjectController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/project/{id}', name: 'admin_project')]
+    #[Route('/admin/project/{id}/edit', name: 'admin_project')]
     public function edit(Project $project, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(ProjectType::class, $project);
@@ -90,6 +90,31 @@ class AdminProjectController extends AbstractController
 
         return $this->render('admin/project/edit.html.twig', [
             'form' => $form->createView(),
+            'project' => $project,
+        ]);
+    }
+
+    #[Route('/admin/project/{id}/delete', name: 'admin_project_delete')]
+    public function delete(Project $project, Request $request, EntityManagerInterface $manager): Response
+    {
+        $confirm = (bool) $request->query->get('confirm', false);
+
+        if ($confirm) {
+            foreach ($project->getPictures() as $picture) {
+                $manager->remove($picture);
+            }
+            $manager->remove($project);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "<strong>Succès !</strong> Le projet <strong>{$project->getName()}</strong> a bien été supprimé !"
+            );
+
+            return $this->redirectToRoute("admin_projects");
+        }
+
+        return $this->render('admin/project/delete.html.twig', [
             'project' => $project,
         ]);
     }
