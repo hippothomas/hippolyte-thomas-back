@@ -21,6 +21,43 @@ class AdminProjectController extends AbstractController
         ]);
     }
 
+    #[Route('/admin/project/new', name: 'admin_project_new')]
+    public function new(Request $request, EntityManagerInterface $manager): Response
+    {
+        $project = new Project();
+
+        $form = $this->createForm(ProjectType::class, $project);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            foreach ($project->getPictures() as $picture) {
+                $picture->setProject($project);
+                $manager->persist($picture);
+            }
+            foreach ($project->getTechnologies() as $techno) {
+                $techno->addProject($project);
+                $manager->persist($techno);
+            }
+
+            $manager->persist($project);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "<strong>Succès !</strong> Le projet <strong>{$project->getName()}</strong> a bien été enregistrée !"
+            );
+
+            return $this->redirectToRoute("admin_project", [
+                "id" => $project->getId()
+            ]);
+        }
+
+        return $this->render('admin/project/new.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
     #[Route('/admin/project/{id}', name: 'admin_project')]
     public function edit(Project $project, Request $request, EntityManagerInterface $manager): Response
     {
