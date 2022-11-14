@@ -1,0 +1,9 @@
+footer.center .footer-center {
+    text-align: center;
+    width: 100%;
+}
+footer.center .footer-center .copy {
+    float: none;
+    display:inline-block;
+    vertical-align: middle;
+}
