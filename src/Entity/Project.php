@@ -37,7 +37,7 @@ class Project
     private ?string $description = null;
 
     #[Groups("project_details")]
-    #[ORM\OneToMany(mappedBy: 'project', targetEntity: Media::class)]
+    #[ORM\OneToMany(mappedBy: 'project', targetEntity: Media::class, orphanRemoval: true)]
     private Collection $pictures;
 
     #[Groups("project_details")]

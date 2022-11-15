@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Project;
+use App\Form\MediaType;
 use App\Entity\Technology;
 use App\Form\ApplicationType;
 use Symfony\Component\Form\AbstractType;
@@ -33,6 +34,7 @@ class ProjectType extends ApplicationType
                 'entry_type' => MediaType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
+                'by_reference' => false,
             ])
         ;
     }
