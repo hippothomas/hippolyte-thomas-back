@@ -7,11 +7,11 @@ use App\Form\MediaType;
 use App\Entity\Technology;
 use App\Form\ApplicationType;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class ProjectType extends ApplicationType
@@ -22,7 +22,7 @@ class ProjectType extends ApplicationType
             ->add('name', TextType::class, $this->getConfiguration("Nom", "Nom du projet"))
             ->add('slug', TextType::class, $this->getConfiguration("Slug", "Chaine URL du projet (auto)", [ 'required' => false ]))
             ->add('introduction', TextType::class, $this->getConfiguration("Introduction", "Description courte du projet (1 phrase)"))
-            ->add('description', TextareaType::class, $this->getConfiguration("Description", "Description détaillée du projet"))
+            ->add('description', CKEditorType::class, $this->getConfiguration("Description", "Description détaillée du projet"))
             ->add('technologies', EntityType::class, [
                 'label' => 'Technologies',
                 'class' => Technology::class,
@@ -43,6 +43,7 @@ class ProjectType extends ApplicationType
     {
         $resolver->setDefaults([
             'data_class' => Project::class,
+            'sanitize_html' => true,
         ]);
     }
 }

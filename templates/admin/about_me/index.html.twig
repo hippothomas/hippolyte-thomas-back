@@ -2,7 +2,10 @@
 
 {% block title %}Administration de À propos{% endblock %}
 
-{% form_theme form 'admin/about_me/_picture.html.twig' %}
+{% form_theme form with [
+    'admin/about_me/_picture.html.twig',
+    '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+] %}
 
 {% block body %}
 <div class="container">

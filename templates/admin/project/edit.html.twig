@@ -2,7 +2,10 @@
 
 {% block title %}Administration du projet "{{project.name}}"{% endblock %}
 
-{% form_theme form 'admin/project/_collection.html.twig' %}
+{% form_theme form with [
+    'admin/project/_collection.html.twig',
+    '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+] %}
 
 {% block body %}
 <div class="container mb-5">
