@@ -30,7 +30,7 @@
                     <td>{{social.link}}</td>
                     <td>
                         <a href="{{ path('admin_social_edit', {id: social.id}) }}" class="btn btn-primary"><i class="fas fa-edit fa-sm"></i></a>
-                        <a href="#" class="btn btn-warning"><i class="fas fa-trash fa-sm"></i></a>
+                        <a href="{{ path('admin_social_delete', {id: social.id}) }}" class="btn btn-warning"><i class="fas fa-trash fa-sm"></i></a>
                     </td>
                 </tr>
             {% endfor %}

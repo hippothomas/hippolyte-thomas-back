@@ -81,4 +81,29 @@ class AdminSocialController extends AbstractController
             'social' => $social,
         ]);
     }
+
+    #[Route('/admin/social/{id}/delete', name: 'admin_social_delete')]
+    public function delete(Social $social, Request $request, EntityManagerInterface $manager): Response
+    {
+        $confirm = (bool) $request->query->get('confirm', false);
+
+        if ($confirm) {
+            $picture = $social->getPicture();
+            $manager->remove($picture);
+
+            $manager->remove($social);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "<strong>Succès !</strong> Le réseau <strong>{$social->getName()}</strong> a bien été supprimé !"
+            );
+
+            return $this->redirectToRoute("admin_socials");
+        }
+
+        return $this->render('admin/social/delete.html.twig', [
+            'social' => $social,
+        ]);
+    }
 }
