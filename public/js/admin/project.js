@@ -26,5 +26,8 @@ handleDeleteButtons();
 
 jQuery("#project_technologies").removeClass('form-select');
 new SlimSelect({
-    select: '#project_technologies'
+    select: '#project_technologies',
+    placeholder: 'Ajouter une technologie',
+    searchText: 'Aucun résultat...',
+    searchPlaceholder: 'Chercher une technologie',
 })
