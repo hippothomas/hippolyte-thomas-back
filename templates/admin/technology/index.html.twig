@@ -32,7 +32,7 @@
                     <td><span class="badge bg-primary rounded-pill">{{technology.projects|length}}</span></td>
                     <td>
                         <a href="{{ path('admin_technology_edit', {id: technology.id}) }}" class="btn btn-primary"><i class="fas fa-edit fa-sm"></i></a>
-                        <a href="#" class="btn btn-warning"><i class="fas fa-trash fa-sm"></i></a>
+                        <a href="{{ path('admin_technology_delete', {id: technology.id}) }}" class="btn btn-warning"><i class="fas fa-trash fa-sm"></i></a>
                     </td>
                 </tr>
             {% endfor %}

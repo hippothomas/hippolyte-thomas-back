@@ -75,4 +75,26 @@ class AdminTechnologyController extends AbstractController
             'technology' => $technology,
         ]);
     }
+
+    #[Route('/admin/technology/{id}/delete', name: 'admin_technology_delete')]
+    public function delete(Technology $technology, Request $request, EntityManagerInterface $manager): Response
+    {
+        $confirm = (bool) $request->query->get('confirm', false);
+
+        if ($confirm) {
+            $manager->remove($technology);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "<strong>Succès !</strong> La technologie <strong>{$technology->getName()}</strong> a bien été supprimée !"
+            );
+
+            return $this->redirectToRoute("admin_technologies");
+        }
+
+        return $this->render('admin/technology/delete.html.twig', [
+            'technology' => $technology,
+        ]);
+    }
 }
