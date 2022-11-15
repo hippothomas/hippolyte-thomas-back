@@ -8,16 +8,6 @@ jQuery("#add-image").click(() => {
 
     handleDeleteButtons();
 });
-jQuery("#add-technology").click(() => {
-    const index = +jQuery('#widget-technologies-counter').val();
-    const tmpl  = jQuery("#project_technologies").data("prototype").replace(/__name__/g, index);
-    
-    jQuery("#project_technologies").append(tmpl);
-
-    jQuery('#widget-technologies-counter').val(index + 1);
-
-    handleDeleteButtons();
-});
 
 function handleDeleteButtons() {
     jQuery('button[data-action="delete"]').click(function() {
@@ -32,5 +22,9 @@ function updateCounter(id) {
 }
 
 updateCounter('pictures');
-updateCounter('technologies');
 handleDeleteButtons();
+
+jQuery("#project_technologies").removeClass('form-select');
+new SlimSelect({
+    select: '#project_technologies'
+})

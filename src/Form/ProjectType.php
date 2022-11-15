@@ -3,10 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Project;
-use App\Form\TechnologyType;
+use App\Entity\Technology;
 use App\Form\ApplicationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -21,11 +22,11 @@ class ProjectType extends ApplicationType
             ->add('slug', TextType::class, $this->getConfiguration("Slug", "Chaine URL du projet (auto)", [ 'required' => false ]))
             ->add('introduction', TextType::class, $this->getConfiguration("Introduction", "Description courte du projet (1 phrase)"))
             ->add('description', TextareaType::class, $this->getConfiguration("Description", "Description détaillée du projet"))
-            ->add('technologies', CollectionType::class, [
-                'label' => 'Technologies utilisées',
-                'entry_type' => TechnologyType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
+            ->add('technologies', EntityType::class, [
+                'label' => 'Technologies',
+                'class' => Technology::class,
+                'choice_label' => 'name',
+                'multiple' => true,
             ])
             ->add('pictures', CollectionType::class, [
                 'label' => 'Galerie Photos',
