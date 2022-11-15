@@ -17,9 +17,12 @@
 <div class="container mb-5">
     <h2 class="my-4">Projets lié à cette technologie :</strong></h2>
     
+    {% if technology.projects|length == 0 %}
+    <p>Aucun projet n'est relié à cette technologie pour le moment...</p>
+    {% else %}
     <div class="row">
         {% for project in technology.projects %}
-        <div class="col">
+        <div class="col-4">
             <div class="card mb-3">
                 <h4 class="card-header">{{project.name}} ({{project.id}})</h4>
                 <div class="card-body" style="height: 95px">
@@ -30,5 +33,6 @@
         </div>
         {% endfor %}
     </div>
+    {% endif %}
 </div>
 {% endblock %}
