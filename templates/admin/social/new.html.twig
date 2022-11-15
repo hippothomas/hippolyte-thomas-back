@@ -1,0 +1,19 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Création d'un réseau{% endblock %}
+
+{% form_theme form 'admin/social/_picture.html.twig' %}
+
+{% block body %}
+<div class="container mb-5">
+    <h1 class="my-5">Création d'un réseau</h1>
+    
+    {{ form_start(form) }}
+
+    {{ form_widget(form) }}
+
+    <button type="submit" class="btn btn-primary">Créer le réseau</button>
+
+    {{ form_end(form) }}
+</div>
+{% endblock %}

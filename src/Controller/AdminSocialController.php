@@ -21,6 +21,37 @@ class AdminSocialController extends AbstractController
         ]);
     }
     
+    #[Route('/admin/social/new', name: 'admin_social_new')]
+    public function new(Request $request, EntityManagerInterface $manager): Response
+    {
+        $social = new Social();
+
+        $form = $this->createForm(SocialType::class, $social);
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $picture = $social->getPicture();
+            $manager->persist($picture);
+
+            $manager->persist($social);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "<strong>Succès !</strong> Le réseau <strong>{$social->getName()}</strong> a bien été enregistré !"
+            );
+
+            return $this->redirectToRoute("admin_social_edit", [
+                "id" => $social->getId()
+            ]);
+        }
+
+        return $this->render('admin/social/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+    
     #[Route('/admin/social/{id}/edit', name: 'admin_social_edit')]
     public function edit(Social $social, Request $request, EntityManagerInterface $manager): Response
     {
@@ -37,7 +68,7 @@ class AdminSocialController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "<strong>Succès !</strong> Le réseau <strong>{$social->getName()}</strong> a bien été modifiée !"
+                "<strong>Succès !</strong> Le réseau <strong>{$social->getName()}</strong> a bien été modifié !"
             );
 
             return $this->redirectToRoute("admin_social_edit", [
