@@ -1,0 +1,19 @@
+
+{% block _social_picture_widget %}
+    <div class="form-group mt-2 mb-2">
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        {{ form_widget(form.url) }}
+                        {{ form_errors(form.url) }}
+                    </div>
+                    <div class="col">
+                        {{ form_widget(form.caption) }}
+                        {{ form_errors(form.caption) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
