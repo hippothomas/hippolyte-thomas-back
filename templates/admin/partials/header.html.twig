@@ -5,6 +5,7 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarColor02">
+            {% if app.user %}
 			<ul class="navbar-nav me-auto">
 				<li class="nav-item">
 					<a class="nav-link" href="{{ path('admin_home') }}">Accueil</a>
@@ -24,9 +25,17 @@
 			</ul>
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<a class="nav-link" href="#">Connexion</a>
+					<a class="nav-link" href="{{ path('account_logout') }}">Déconnexion</a>
 				</li>
 			</ul>
+            {% else %}
+			<ul class="navbar-nav me-auto"></ul>
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('account_login') }}">Connexion</a>
+				</li>
+			</ul>
+            {% endif %}
 		</div>
 	</div>
 </nav>
