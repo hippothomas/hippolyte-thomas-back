@@ -17,8 +17,7 @@ class MediaType extends AbstractType
             ->add('file', VichImageType::class, [
                 'label' => 'Media',
                 'required' => false,
-                'allow_delete' => true,
-                'delete_label' => 'Supprimer',
+                'allow_delete' => false,
                 'download_label' => 'Télécharger',
                 'download_uri' => true,
                 'image_uri' => true,

@@ -43,7 +43,7 @@ class Media
         return $this->fileName;
     }
 
-    public function setFileName(string $fileName): self
+    public function setFileName(?string $fileName): self
     {
         $this->fileName = $fileName;
 
@@ -55,7 +55,7 @@ class Media
         return $this->file;
     }
 
-    public function setFile(File $file): self
+    public function setFile(?File $file): self
     {
         $this->file = $file;
 
