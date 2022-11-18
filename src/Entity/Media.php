@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\MediaRepository;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
+#[Vich\Uploadable]
 class Media
 {
     #[Groups("media")]
@@ -17,7 +20,10 @@ class Media
 
     #[Groups("media")]
     #[ORM\Column(length: 255)]
-    private ?string $url = null;
+    private ?string $fileName = null;
+
+    #[Vich\UploadableField(mapping: "assets", fileNameProperty: "fileName")]
+    private ?File $file = null;
 
     #[Groups("media")]
     #[ORM\Column(length: 255, nullable: true)]
@@ -32,14 +38,26 @@ class Media
         return $this->id;
     }
 
-    public function getUrl(): ?string
+    public function getFileName(): ?string
     {
-        return $this->url;
+        return $this->fileName;
     }
 
-    public function setUrl(string $url): self
+    public function setFileName(string $fileName): self
     {
-        $this->url = $url;
+        $this->fileName = $fileName;
+
+        return $this;
+    }
+
+    public function getFile(): ?File
+    {
+        return $this->file;
+    }
+
+    public function setFile(File $file): self
+    {
+        $this->file = $file;
 
         return $this;
     }
