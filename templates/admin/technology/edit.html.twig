@@ -28,7 +28,7 @@
                     <h4 class="card-title">{{project.name}} ({{project.id}})</h4>
                     <h6 class="card-subtitle mb-2 text-muted">{{project.introduction}}</h5>
                 </div>
-                <img src="{{project.pictures.first.url}}" alt="{{project.pictures.first.caption}}" class="d-block user-select-none" width="100%" height="200" style="object-fit: cover;" />
+                <img src="{{ vich_uploader_asset(project.pictures.first) }}" alt="{{project.pictures.first.caption}}" class="d-block user-select-none" width="100%" height="200" style="object-fit: cover;" />
             </div>        
         </div>
         {% endfor %}
