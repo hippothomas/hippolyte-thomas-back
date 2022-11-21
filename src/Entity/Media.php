@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\MediaRepository;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 #[Vich\Uploadable]
 class Media
 {
@@ -32,6 +35,17 @@ class Media
     #[Groups("media_details")]
     #[ORM\ManyToOne(inversedBy: 'pictures')]
     private ?Project $project = null;
+
+    #[Groups("media")]
+    #[ORM\Column(type: 'datetime')]
+    private DateTime $updated;
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function update(): void
+    {
+        $this->setUpdated(new \DateTime());
+    }
 
     public function getId(): ?int
     {
@@ -59,6 +73,10 @@ class Media
     {
         $this->file = $file;
 
+        if ($file instanceof UploadedFile) {
+            $this->setUpdated(new \DateTime());
+        }
+
         return $this;
     }
 
@@ -82,6 +100,18 @@ class Media
     public function setProject(?Project $project): self
     {
         $this->project = $project;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?DateTime
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(?DateTime $updated): self
+    {
+        $this->updated = $updated;
 
         return $this;
     }

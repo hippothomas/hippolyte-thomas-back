@@ -40,3 +40,16 @@ footer.center .footer-center .copy {
     border: 1px solid #ced4da;
     object-fit: contain;
 }
+.vich-image .show-picture {
+    position: relative;
+}
+.vich-image .show-picture .btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border: 1px solid var(--bs-btn-border-color);
+    padding: 0px 5px 4px 7px;
+}
+.vich-image .edit-picture {
+    display: none;
+}

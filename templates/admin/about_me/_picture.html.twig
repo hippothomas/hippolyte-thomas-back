@@ -25,9 +25,15 @@
         {% endif %}
 
         {% if image_uri %}
-            <a href="{{ asset_helper is same as(true) ? asset(image_uri) : image_uri }}" target="_blank" download>
-                <img src="{{ asset_helper is same as(true) ? asset(image_uri) : image_uri }}" class="vich-image-pic" />
-            </a>
+            <div class="show-picture">
+                <a href="{{ asset_helper is same as(true) ? asset(image_uri) : image_uri }}" target="_blank" download>
+                    <img src="{{ asset_helper is same as(true) ? asset(image_uri) : image_uri }}" class="vich-image-pic" />
+                </a>
+                <button type="button" id="edit-btn" data-action="edit" class="btn btn-dark"><i class="fas fa-edit fa-xs"></i></button>
+            </div>
+            <div class="edit-picture">
+                {{ form_widget(form.file, {attr: attr}) }}
+            </div>
         {% else %}
             {{ form_widget(form.file, {attr: attr}) }}
         {% endif %}
