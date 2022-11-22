@@ -17,6 +17,9 @@ jobs:
 
     - name: Get the latest code
       uses: actions/checkout@v3
+      
+    - name: Make .env
+      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
     - name: Composer Install
       run: composer install --ansi --prefer-dist --no-interaction --no-progress --no-dev
