@@ -46,6 +46,7 @@ jobs:
         port: ${{ secrets.PORT }}
         script:  |
           cd ${{ secrets.TARGET }}
+          source ~/.profile
           php bin/console doctrine:migrations:migrate
           php bin/console cache:clear
       
