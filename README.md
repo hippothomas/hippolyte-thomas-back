@@ -1,4 +1,4 @@
-# Hippolyte Thomas V2 - Backend
+# Hippolyte Thomas - Backend
 
 Personal website : **[hippolyte-thomas.fr](https://hippolyte-thomas.fr/)**
 
