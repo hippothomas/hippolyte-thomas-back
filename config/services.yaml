@@ -30,6 +30,7 @@ services:
             -
                 version: 'latest'
                 region: '%env(AWS_S3_REGION)%'
+                endpoint: '%env(AWS_BASE_URL)%'
                 credentials:
                     key: '%env(AWS_KEY)%'
                     secret: '%env(AWS_SECRET_KEY)%'

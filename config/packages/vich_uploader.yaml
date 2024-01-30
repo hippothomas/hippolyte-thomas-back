@@ -4,7 +4,7 @@ vich_uploader:
 
     mappings:
         assets:
-            uri_prefix:         '%env(AWS_BASE_URL)%/assets'
+            uri_prefix:         '%env(AWS_PUBLIC_URL)%/assets'
             upload_destination: 'oneup_flysystem.assets_filesystem'
             namer:              vich_uploader.namer_uniqid
             delete_on_remove:   true
