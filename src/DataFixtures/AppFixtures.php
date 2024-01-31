@@ -79,7 +79,8 @@ class AppFixtures extends Fixture
         // Generating Projects
         for ($i=0; $i < 10; $i++) { 
             $project = new Project();
-            $project->setName($faker->words(3, true))
+            $name = implode(' ', (array) $faker->words(3));
+            $project->setName($name)
                     ->setIntroduction($faker->sentence(10))
                     ->setDescription('<p>'.implode('</p><p>', (array) $faker->paragraphs(5)).'</p>');
 
