@@ -85,7 +85,7 @@ class AdminSocialController extends AbstractController
     #[Route('/admin/social/{id}/delete', name: 'admin_social_delete')]
     public function delete(Social $social, Request $request, EntityManagerInterface $manager): Response
     {
-        $confirm = (bool) $request->query->get('confirm', false);
+        $confirm = (bool) $request->query->get('confirm');
 
         if ($confirm) {
             $picture = $social->getPicture();

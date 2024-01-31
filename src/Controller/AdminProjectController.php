@@ -97,7 +97,7 @@ class AdminProjectController extends AbstractController
     #[Route('/admin/project/{id}/delete', name: 'admin_project_delete')]
     public function delete(Project $project, Request $request, EntityManagerInterface $manager): Response
     {
-        $confirm = (bool) $request->query->get('confirm', false);
+        $confirm = (bool) $request->query->get('confirm');
 
         if ($confirm) {
             foreach ($project->getPictures() as $picture) {
