@@ -16,6 +16,9 @@ jobs:
         coverage: none
         tools: composer
 
+    - name: Install dependencies
+      run: composer install --ansi --no-interaction --no-progress --no-dev
+
     - name: PHPStan Static Analysis
       uses: php-actions/phpstan@v3
       with:
