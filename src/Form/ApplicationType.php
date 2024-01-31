@@ -11,8 +11,8 @@ class ApplicationType extends AbstractType
      *
      * @param string $label
      * @param string $placeholder
-     * @param array $options
-     * @return array
+     * @param array<mixed> $options
+     * @return array<mixed>
      */
     protected function getConfiguration(string $label, string $placeholder, array $options = []): array
     {

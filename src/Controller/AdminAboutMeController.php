@@ -23,7 +23,7 @@ class AdminAboutMeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $picture = $about_me->getPicture();
-            $manager->persist($picture);
+            if ($picture) $manager->persist($picture);
 
             $manager->persist($about_me);
             $manager->flush();
