@@ -1,0 +1,23 @@
+name: PHP Checks
+on: pull_request
+jobs:
+  phpstan:
+    name: PHPStan
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get the latest code
+      uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ secrets.PHP_VERSION }}
+        extensions: none
+        coverage: none
+        tools: composer
+
+    - name: PHPStan Static Analysis
+      uses: php-actions/phpstan@v3
+      with:
+        configuration: ./phpstan.dist.neon
+        memory_limit: 256M
