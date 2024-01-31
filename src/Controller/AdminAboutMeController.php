@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\AboutMe;
 use App\Form\AboutMeType;
 use App\Repository\AboutMeRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,12 +16,11 @@ class AdminAboutMeController extends AbstractController
     #[Route('/admin/about-me', name: 'admin_about_me')]
     public function edit(AboutMeRepository $repo, Request $request, EntityManagerInterface $manager): Response
     {
-        $about_me = $repo->findAll()[0];
+        $about_me = $repo->findOneBy([]) ?? new AboutMe();
 
         $form = $this->createForm(AboutMeType::class, $about_me);
-        
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
             $picture = $about_me->getPicture();
             $manager->persist($picture);
