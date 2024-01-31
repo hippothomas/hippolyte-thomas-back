@@ -32,7 +32,7 @@ class AdminSocialController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $picture = $social->getPicture();
-            $manager->persist($picture);
+            if ($picture) $manager->persist($picture);
 
             $manager->persist($social);
             $manager->flush();
@@ -61,7 +61,7 @@ class AdminSocialController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $picture = $social->getPicture();
-            $manager->persist($picture);
+            if ($picture) $manager->persist($picture);
 
             $manager->persist($social);
             $manager->flush();
@@ -89,7 +89,7 @@ class AdminSocialController extends AbstractController
 
         if ($confirm) {
             $picture = $social->getPicture();
-            $manager->remove($picture);
+            if ($picture) $manager->remove($picture);
 
             $manager->remove($social);
             $manager->flush();
