@@ -62,7 +62,7 @@ class Technology
     {
         if (empty($this->slug)) {
             $slugify = new Slugify();
-            $this->slug = $slugify->slugify($this->name);
+            $this->slug = $slugify->slugify((string) $this->name);
         }
     }
 
