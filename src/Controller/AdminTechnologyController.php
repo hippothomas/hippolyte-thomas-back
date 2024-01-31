@@ -79,7 +79,7 @@ class AdminTechnologyController extends AbstractController
     #[Route('/admin/technology/{id}/delete', name: 'admin_technology_delete')]
     public function delete(Technology $technology, Request $request, EntityManagerInterface $manager): Response
     {
-        $confirm = (bool) $request->query->get('confirm', false);
+        $confirm = (bool) $request->query->get('confirm');
 
         if ($confirm) {
             $manager->remove($technology);

@@ -27,6 +27,9 @@ class Technology
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
+    /**
+     * @var Collection<int, Project> $projects
+     */
     #[Groups("technology_details")]
     #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'technologies')]
     private Collection $projects;
@@ -59,7 +62,7 @@ class Technology
     {
         if (empty($this->slug)) {
             $slugify = new Slugify();
-            $this->slug = $slugify->slugify($this->name);
+            $this->slug = $slugify->slugify((string) $this->name);
         }
     }
 

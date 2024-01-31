@@ -109,7 +109,7 @@ class Media
         return $this->updated;
     }
 
-    public function setUpdated(?DateTime $updated): self
+    public function setUpdated(DateTime $updated): self
     {
         $this->updated = $updated;
 

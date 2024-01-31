@@ -15,7 +15,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
-    private $hasher;
+    private UserPasswordHasherInterface $hasher;
 
     public function __construct (UserPasswordHasherInterface $userPasswordHasherInterface) 
     {
@@ -46,7 +46,7 @@ class AppFixtures extends Fixture
         $about_me = new AboutMe();
         $about_me->setName($faker->name('men'))
                  ->setJob($faker->sentence(4))
-                 ->setDescription('<p>'.implode('</p><p>', $faker->paragraphs(3)).'</p>')
+                 ->setDescription('<p>'.implode('</p><p>', (array) $faker->paragraphs(3)).'</p>')
                  ->setPicture($picture);
 
         $manager->persist($about_me);
@@ -79,9 +79,10 @@ class AppFixtures extends Fixture
         // Generating Projects
         for ($i=0; $i < 10; $i++) { 
             $project = new Project();
-            $project->setName($faker->words(3, true))
+            $name = implode(' ', (array) $faker->words(3));
+            $project->setName($name)
                     ->setIntroduction($faker->sentence(10))
-                    ->setDescription('<p>'.implode('</p><p>', $faker->paragraphs(5)).'</p>');
+                    ->setDescription('<p>'.implode('</p><p>', (array) $faker->paragraphs(5)).'</p>');
 
             // Adding random technologies
             for ($j=1; $j < mt_rand(1, 5); $j++) {
