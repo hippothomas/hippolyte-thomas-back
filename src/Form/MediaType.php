@@ -4,10 +4,10 @@ namespace App\Form;
 
 use App\Entity\Media;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Vich\UploaderBundle\Form\Type\VichImageType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class MediaType extends AbstractType
 {
@@ -25,8 +25,8 @@ class MediaType extends AbstractType
             ])
             ->add('caption', TextType::class, [
                 'attr' => [
-                    'placeholder' => "Titre du média"
-                ]
+                    'placeholder' => 'Titre du média',
+                ],
             ])
         ;
     }

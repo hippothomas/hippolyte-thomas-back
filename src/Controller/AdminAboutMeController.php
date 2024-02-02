@@ -6,10 +6,10 @@ use App\Entity\AboutMe;
 use App\Form\AboutMeType;
 use App\Repository\AboutMeRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminAboutMeController extends AbstractController
 {
@@ -23,17 +23,19 @@ class AdminAboutMeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $picture = $about_me->getPicture();
-            if ($picture) $manager->persist($picture);
+            if ($picture) {
+                $manager->persist($picture);
+            }
 
             $manager->persist($about_me);
             $manager->flush();
 
             $this->addFlash(
                 'success',
-                "<strong>Succès !</strong> Les informations ont bien été modifiées !"
+                '<strong>Succès !</strong> Les informations ont bien été modifiées !'
             );
 
-            return $this->redirectToRoute("admin_about_me");
+            return $this->redirectToRoute('admin_about_me');
         }
 
         return $this->render('admin/about_me/index.html.twig', [
