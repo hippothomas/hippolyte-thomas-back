@@ -41,6 +41,9 @@ class ProjectType extends ApplicationType
         $resolver->setDefaults([
             'data_class' => Project::class,
             'sanitize_html' => true,
+            'attr' => [
+                'novalidate' => 'novalidate',
+            ],
         ]);
     }
 }

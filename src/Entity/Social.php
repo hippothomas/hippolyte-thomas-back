@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\SocialRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SocialRepository::class)]
 class Social
@@ -14,13 +15,16 @@ class Social
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull(message: 'Nom ne peut pas être vide !')]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull(message: 'Lien ne peut pas être vide !')]
     private ?string $link = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\Valid]
     private ?Media $picture = null;
 
     public function getId(): ?int

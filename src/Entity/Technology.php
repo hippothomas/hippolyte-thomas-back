@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TechnologyRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -21,6 +22,7 @@ class Technology
 
     #[Groups('technology')]
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull(message: 'Nom ne peut pas être vide !')]
     private ?string $name = null;
 
     #[Groups('technology')]
