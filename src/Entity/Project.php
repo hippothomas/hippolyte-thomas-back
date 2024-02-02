@@ -2,51 +2,51 @@
 
 namespace App\Entity;
 
+use App\Repository\ProjectRepository;
 use Cocur\Slugify\Slugify;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\ProjectRepository;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class Project
 {
-    #[Groups("project")]
+    #[Groups('project')]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Groups("project")]
+    #[Groups('project')]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[Groups("project")]
+    #[Groups('project')]
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
-    #[Groups("project")]
+    #[Groups('project')]
     #[ORM\Column(length: 255)]
     private ?string $introduction = null;
 
-    #[Groups("project")]
+    #[Groups('project')]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
     /**
      * @var Collection<int, Media> $pictures
      */
-    #[Groups("project_details")]
+    #[Groups('project_details')]
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: Media::class, orphanRemoval: true)]
     private Collection $pictures;
 
     /**
      * @var Collection<int, Technology> $technologies
      */
-    #[Groups("project_details")]
+    #[Groups('project_details')]
     #[ORM\ManyToMany(targetEntity: Technology::class, inversedBy: 'projects')]
     private Collection $technologies;
 

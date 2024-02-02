@@ -6,10 +6,10 @@ use App\Entity\Project;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminProjectController extends AbstractController
 {
@@ -48,13 +48,13 @@ class AdminProjectController extends AbstractController
                 "<strong>Succès !</strong> Le projet <strong>{$project->getName()}</strong> a bien été enregistrée !"
             );
 
-            return $this->redirectToRoute("admin_project", [
-                "id" => $project->getId()
+            return $this->redirectToRoute('admin_project', [
+                'id' => $project->getId(),
             ]);
         }
 
         return $this->render('admin/project/new.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -83,8 +83,8 @@ class AdminProjectController extends AbstractController
                 "<strong>Succès !</strong> Le projet <strong>{$project->getName()}</strong> a bien été modifiée !"
             );
 
-            return $this->redirectToRoute("admin_project", [
-                "id" => $project->getId()
+            return $this->redirectToRoute('admin_project', [
+                'id' => $project->getId(),
             ]);
         }
 
@@ -111,7 +111,7 @@ class AdminProjectController extends AbstractController
                 "<strong>Succès !</strong> Le projet <strong>{$project->getName()}</strong> a bien été supprimé !"
             );
 
-            return $this->redirectToRoute("admin_projects");
+            return $this->redirectToRoute('admin_projects');
         }
 
         return $this->render('admin/project/delete.html.twig', [

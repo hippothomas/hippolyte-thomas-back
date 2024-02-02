@@ -2,12 +2,12 @@
 
 namespace App\Controller;
 
-use App\Repository\SocialRepository;
 use App\Repository\ProjectRepository;
+use App\Repository\SocialRepository;
 use App\Repository\TechnologyRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminHomeController extends AbstractController
 {

@@ -4,7 +4,6 @@ namespace App;
 
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
-use Override;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -14,7 +13,7 @@ class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
-    #[Override]
+    #[\Override]
     protected function build(ContainerBuilder $container): void
     {
         // fixing issue: https://github.com/doctrine/orm/issues/8893
@@ -23,7 +22,7 @@ class Kernel extends BaseKernel
             {
                 $container->getDefinition('doctrine.orm.default_configuration')
                     ->addMethodCall('setIdentityGenerationPreferences', [
-                        [ PostgreSQLPlatform::class => ClassMetadataInfo::GENERATOR_TYPE_SEQUENCE ],
+                        [PostgreSQLPlatform::class => ClassMetadataInfo::GENERATOR_TYPE_SEQUENCE],
                     ]);
             }
         });
