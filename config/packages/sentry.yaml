@@ -1,0 +1,18 @@
+when@prod:
+    sentry:
+        dsn: '%env(SENTRY_DSN)%'
+        options:
+            release: !php/const App\Constants::VERSION
+            traces_sample_rate: 0.2
+        tracing:
+            enabled: true
+        # Monolog Integration
+        register_error_listener: false # Disables the ErrorListener to avoid duplicated log in sentry
+        register_error_handler: false # Disables the ErrorListener, ExceptionListener and FatalErrorListener integrations of the base PHP SDK
+
+    monolog:
+        handlers:
+            sentry:
+                type: sentry
+                level: !php/const Monolog\Logger::ERROR
+                hub_id: Sentry\State\HubInterface
