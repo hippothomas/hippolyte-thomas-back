@@ -113,7 +113,7 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "cs-fix": "vendor/bin/php-cs-fixer fix src"
+        "cs-fix": "vendor/bin/php-cs-fixer fix"
     },
     "conflict": {
         "symfony/symfony": "*"
