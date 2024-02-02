@@ -13,4 +13,8 @@ class Constants
      * The current release: major * 10000 + minor * 100 + patch.
      */
     public const int VERSION_ID = 10100;
+    /**
+     * Main Website URL.
+     */
+    public const string MAIN_WEBSITE = 'https://hippolyte-thomas.fr/';
 }
