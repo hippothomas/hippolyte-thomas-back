@@ -7,11 +7,10 @@ use Symfony\Component\Form\AbstractType;
 class ApplicationType extends AbstractType
 {
     /**
-     * Default configuration for the fields
+     * Default configuration for the fields.
      *
-     * @param string $label
-     * @param string $placeholder
      * @param array<mixed> $options
+     *
      * @return array<mixed>
      */
     protected function getConfiguration(string $label, string $placeholder, array $options = []): array
@@ -19,8 +18,8 @@ class ApplicationType extends AbstractType
         return array_merge([
             'label' => $label,
             'attr' => [
-                'placeholder' => $placeholder
-            ]
+                'placeholder' => $placeholder,
+            ],
         ], $options);
     }
 }

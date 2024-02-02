@@ -6,10 +6,10 @@ use App\Entity\Technology;
 use App\Form\TechnologyType;
 use App\Repository\TechnologyRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminTechnologyController extends AbstractController
 {
@@ -27,9 +27,9 @@ class AdminTechnologyController extends AbstractController
         $technology = new Technology();
 
         $form = $this->createForm(TechnologyType::class, $technology);
-        
+
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($technology);
             $manager->flush();
@@ -39,8 +39,8 @@ class AdminTechnologyController extends AbstractController
                 "<strong>Succès !</strong> La technologie <strong>{$technology->getName()}</strong> a bien été enregistrée !"
             );
 
-            return $this->redirectToRoute("admin_technology_edit", [
-                "id" => $technology->getId()
+            return $this->redirectToRoute('admin_technology_edit', [
+                'id' => $technology->getId(),
             ]);
         }
 
@@ -53,9 +53,9 @@ class AdminTechnologyController extends AbstractController
     public function edit(Technology $technology, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(TechnologyType::class, $technology);
-        
+
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($technology);
             $manager->flush();
@@ -65,8 +65,8 @@ class AdminTechnologyController extends AbstractController
                 "<strong>Succès !</strong> La technologie <strong>{$technology->getName()}</strong> a bien été modifiée !"
             );
 
-            return $this->redirectToRoute("admin_technology_edit", [
-                "id" => $technology->getId()
+            return $this->redirectToRoute('admin_technology_edit', [
+                'id' => $technology->getId(),
             ]);
         }
 
@@ -90,7 +90,7 @@ class AdminTechnologyController extends AbstractController
                 "<strong>Succès !</strong> La technologie <strong>{$technology->getName()}</strong> a bien été supprimée !"
             );
 
-            return $this->redirectToRoute("admin_technologies");
+            return $this->redirectToRoute('admin_technologies');
         }
 
         return $this->render('admin/technology/delete.html.twig', [
