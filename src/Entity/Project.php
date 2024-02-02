@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -22,6 +23,7 @@ class Project
 
     #[Groups('project')]
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull(message: 'Nom ne peut pas être vide !')]
     private ?string $name = null;
 
     #[Groups('project')]
@@ -30,10 +32,12 @@ class Project
 
     #[Groups('project')]
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull(message: 'Introduction ne peut pas être vide !')]
     private ?string $introduction = null;
 
     #[Groups('project')]
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotNull(message: 'Description ne peut pas être vide !')]
     private ?string $description = null;
 
     /**
@@ -48,6 +52,7 @@ class Project
      */
     #[Groups('project_details')]
     #[ORM\ManyToMany(targetEntity: Technology::class, inversedBy: 'projects')]
+    #[Assert\Count(min: 1, minMessage: 'Vous devez sélectionner au moins une valeur !')]
     private Collection $technologies;
 
     public function __construct()
@@ -112,7 +117,7 @@ class Project
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\AboutMeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AboutMeRepository::class)]
 class AboutMe
@@ -15,16 +16,20 @@ class AboutMe
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull(message: 'Nom ne peut pas être vide !')]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull(message: 'Poste ne peut pas être vide !')]
     private ?string $job = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotNull(message: 'Description ne peut pas être vide !')]
     private ?string $description = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\Valid]
     private ?Media $picture = null;
 
     public function getId(): ?int

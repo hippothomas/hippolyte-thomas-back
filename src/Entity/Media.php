@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
@@ -25,6 +26,7 @@ class Media
     private ?string $fileName = null;
 
     #[Vich\UploadableField(mapping: 'assets', fileNameProperty: 'fileName')]
+    #[Assert\NotNull(message: 'Le fichier ne peut pas être vide !')]
     private ?File $file = null;
 
     #[Groups('media')]
