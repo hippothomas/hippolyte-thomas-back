@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
@@ -26,7 +27,6 @@ class Media
     private ?string $fileName = null;
 
     #[Vich\UploadableField(mapping: 'assets', fileNameProperty: 'fileName')]
-    #[Assert\NotNull(message: 'Le fichier ne peut pas être vide !')]
     private ?File $file = null;
 
     #[Groups('media')]
@@ -115,5 +115,16 @@ class Media
         $this->updated = $updated;
 
         return $this;
+    }
+
+    #[Assert\Callback]
+    public function validate(ExecutionContextInterface $context): void
+    {
+        // Check if the file already exist or has been uploaded
+        if (null === $this->getFilename() && null === $this->getFile()) {
+            $context->buildViolation('Le fichier ne peut pas être vide !')
+                ->atPath('file')
+                ->addViolation();
+        }
     }
 }
