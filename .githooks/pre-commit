@@ -23,8 +23,6 @@ function __run() #(step, name, cmd)
     fi
 }
 
-modified="git diff --diff-filter=M --name-only --cached  | grep \".php$\""
-
-__run "1/1" "PHP CS Fixer" "${modified} | xargs -r composer cs-fix"
+__run "1/1" "PHP CS Fixer" "git ls-files -m | grep -e '.php$' | xargs composer cs-fix-test"
 
 # script from: https://dev.to/bdelespierre/how-to-setup-git-commit-hooks-for-php-42d1
