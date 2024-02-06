@@ -1,0 +1,17 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Connexion à l'administration{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-3">&nbsp;</div>
+        <div class="col-md-6">
+            <div class="bg-light py-3 px-3">
+                {% block hwi_oauth_content %}
+                {% endblock hwi_oauth_content %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
