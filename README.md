@@ -30,6 +30,12 @@ $ php bin/console doctrine:database:create
 $ php bin/console doctrine:migrations:migrate
 ```
 
+### Add an administrator
+
+```bash
+$ php bin/console app:set-user-roles admin <username>
+```
+
 ## Contributing
 Contributions, suggestions, bug reports and fixes are welcome!
 
