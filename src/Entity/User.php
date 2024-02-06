@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -15,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     fields: ['username'],
     message: 'Vous ne pouvez pas vous inscrire avec ce nom d\'utilisateur, merci de le modifier !',
 )]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -34,22 +33,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private array $roles = [];
-
-    /**
-     * @var string|null The hashed password
-     */
-    #[ORM\Column]
-    #[Assert\Length(
-        min: 8,
-        minMessage: 'Votre mot de passe doit faire plus de {{ limit }} caractères !',
-    )]
-    private ?string $password = null;
-
-    #[Assert\EqualTo(
-        propertyPath: 'password',
-        message: 'Les mots de passe ne sont pas identique...',
-    )]
-    private ?string $passwordConfirm = null;
 
     public function getId(): ?int
     {
@@ -100,39 +83,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
-    public function getPassword(): string
+    #[\Override]
+    public function eraseCredentials()
     {
-        return (string) $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    public function getPasswordConfirm(): ?string
-    {
-        return $this->passwordConfirm;
-    }
-
-    public function setPasswordConfirm(string $password): self
-    {
-        $this->passwordConfirm = $password;
-
-        return $this;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials(): void
-    {
-        // If you store any temporary, sensitive data on the user, clear it here
-        $this->passwordConfirm = null;
     }
 }
