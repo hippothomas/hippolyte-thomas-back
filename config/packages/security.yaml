@@ -1,6 +1,4 @@
 security:
-    # https://github.com/hwi/HWIOAuthBundle/blob/master/docs/3-configuring_the_security_layer.md
-    enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         oauth_provider:
