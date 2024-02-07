@@ -32,6 +32,11 @@ class SetUserRolesCommand extends Command
 
         // Find the user
         $username = $input->getArgument('username');
+        if (!is_string($username)) {
+            $output->writeln('Invalid option for username.');
+
+            return Command::FAILURE;
+        }
         $user = $this->repository->findOneBy([
             'username' => $username,
         ]);
@@ -43,8 +48,8 @@ class SetUserRolesCommand extends Command
 
         // Check if role is a valid option
         $role = $input->getArgument('role');
-        if (!array_key_exists($role, self::ROLE_OPTIONS)) {
-            $output->writeln(sprintf("Invalid option '%s' for argument role.", $role));
+        if (!is_string($role) || !array_key_exists($role, self::ROLE_OPTIONS)) {
+            $output->writeln('Invalid option for argument role.');
 
             return Command::INVALID;
         }
