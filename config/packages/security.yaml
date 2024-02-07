@@ -13,10 +13,10 @@ security:
             pattern: ^/
             oauth:
                 resource_owners:
-                    keycloak: "/login/check-keycloak"
-                login_path:   /login
+                    keycloak: "/admin/login/check-keycloak"
+                login_path:   /admin/login
                 use_forward:  false
-                failure_path: /login
+                failure_path: /admin/login
                 default_target_path: /admin
 
                 oauth_user_provider:
@@ -24,12 +24,13 @@ security:
                 provider: oauth_provider
 
             logout:
-                path: /logout
-                target: /login
+                path: /admin/logout
+                target: /admin/login
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/login, roles: PUBLIC_ACCESS }
-        # require ROLE_ADMIN for /admin*
-        - { path: '^/admin', roles: ROLE_ADMIN }
+        - { path: ^/admin/login, roles: PUBLIC_ACCESS }
+        - { path: ^/admin/connect, roles: PUBLIC_ACCESS }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/, roles: ROLE_USER }
