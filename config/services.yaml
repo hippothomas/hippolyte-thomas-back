@@ -34,3 +34,9 @@ services:
                 credentials:
                     key: '%env(AWS_KEY)%'
                     secret: '%env(AWS_SECRET_KEY)%'
+
+    Sentry\Integration\IgnoreErrorsIntegration:
+        arguments:
+            $options:
+                ignore_exceptions:
+                    - Symfony\Component\HttpKernel\Exception\NotFoundHttpException
