@@ -2,16 +2,17 @@
 
 {% block hwi_oauth_content %}
 {% if app.user %}
-    <div class="alert alert-warning">Vous êtes déjà connecté!</div>
+    <div class="alert alert-warning" role="alert">
+      <h4 class="alert-title">Vous êtes déjà connecté !</h4>
+      <a href="{{ path('admin_home') }}" class="text-secondary text-decoration-underline">Retour au Dashboard</a>
+    </div>
 {% else %}
-    <h1>Connectez-vous !</h1>
-
     {% if error is defined and error %}
         <div class="alert alert-danger">Erreur: {{ error }}</div>
     {% endif %}
 
-    <div class="mt-3 text-center">
-       <a class="btn btn-success" href="{{ hwi_oauth_login_url('keycloak') }}">Se connecter avec Keycloak</a>
+    <div class="text-center">
+       <a class="btn btn-blue" href="{{ hwi_oauth_login_url('keycloak') }}">Se connecter avec Keycloak</a>
     </div>
 {% endif %}
 {% endblock hwi_oauth_content %}
