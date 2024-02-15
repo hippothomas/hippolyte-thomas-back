@@ -27,6 +27,19 @@
 
 {% block navbar_notifications %}{% endblock %}
 
+{% block page_content_before %}
+    {% for label, messages in app.flashes %}
+        <div class="container flashes">
+            <div class="alert alert-dismissible alert-{{ label }}" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                {% for message in messages %}
+                    <h4 class="alert-title">{{ message|raw }}</h4>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+
 {% block footer %}
     <footer id="{% block footer_id %}{% endblock %}" class="footer footer-transparent d-print-none">
         <div class="{{ ''|tabler_container }}">
