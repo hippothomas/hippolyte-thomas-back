@@ -1,11 +1,11 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Accueil de l'administration{% endblock %}
+{% block title %}Accueil {{ title_base }}{% endblock %}
+{% block page_title %}Accueil{% endblock %}
+{% block page_pretitle %}Dashboard{% endblock %}
 
-{% block body %}
+{% block page_content %}
 <div class="container">
-    <h1 class="my-5">Accueil</h1>
-    
     <div class="row">
         <div class="col-4">
             <div class="card card-home">

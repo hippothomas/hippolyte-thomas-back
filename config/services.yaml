@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     app.register: '%env(APP_REGISTER)%'
+    assets.url: '%env(AWS_PUBLIC_URL)%/assets'
 
 services:
     # default configuration for services in *this* file
@@ -34,3 +35,11 @@ services:
                 credentials:
                     key: '%env(AWS_KEY)%'
                     secret: '%env(AWS_SECRET_KEY)%'
+
+    App\EventSubscriber\MenuBuilderSubscriber:
+        arguments:
+            $environment: '%kernel.environment%'
+
+    App\EventSubscriber\UserDetailsSubscriber:
+        arguments:
+            $assetsUrl: '%assets.url%'
