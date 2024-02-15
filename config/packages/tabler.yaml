@@ -1,0 +1,24 @@
+tabler:
+    options:
+        dark_mode: true
+        # for cache busting, can be dynamically changed with the ContextHelper
+        asset_version: "beta19"
+        navbar_condensed: true
+        header_dark: true
+        navbar_dark: true
+        navbar_overlap: false
+        boxed_layout: false
+        rtl_mode: false
+        user_menu_condensed: true
+        logo_url: /images/logo.png
+
+    routes:
+        tabler_welcome: admin_home
+        tabler_login: login
+        tabler_logout: logout
+        tabler_login_check: login_check
+
+    icons:
+        collapse: fas fa-chevron-down
+        mail: far fa-envelope
+        back: fas fa-long-arrow-alt-left
