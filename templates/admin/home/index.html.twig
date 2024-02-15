@@ -6,51 +6,60 @@
 
 {% block page_content %}
 <div class="container">
-    <div class="row">
+    <div class="row row-deck">
         <div class="col-4">
-            <div class="card card-home">
+            <div class="card card-stacked">
                 <div class="card-body">
                     <h4 class="card-title">Projets</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">Les derniers projets :</h6>
+                    <h5 class="card-subtitle mb-2 text-muted">Les derniers projets :</h5>
                     <p class="card-text">
                         <ul>
                             {% for project in projects %}
-                            <li><a href="{{ path('admin_project', {id: project.id}) }}" class="card-link">{{ project.name }}</a></li>
+                            <li class="mt-1"><a href="{{ path('admin_project', {id: project.id}) }}" class="card-link text-decoration-underline">{{ project.name }}</a></li>
                             {% endfor %}
                         </ul>
                     </p>
+                </div>
+                <div class="ribbon bg-cyan">
+                    <i class="far fa-star"></i>
                 </div>
             </div>
         </div>
         
         <div class="col-4">
-            <div class="card card-home">
+            <div class="card card-stacked">
                 <div class="card-body">
                     <h4 class="card-title">Réseaux</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">Les derniers réseaux :</h6>
+                    <h5 class="card-subtitle mb-2 text-muted">Les derniers réseaux :</h5>
                     <p class="card-text">
                         <ul>
                             {% for social in socials %}
-                            <li><a href="{{ path('admin_social_edit', {id: social.id}) }}" class="card-link">{{ social.name }}</a></li>
+                            <li class="mt-1"><a href="{{ path('admin_social_edit', {id: social.id}) }}" class="card-link text-decoration-underline">{{ social.name }}</a></li>
                             {% endfor %}
                         </ul>
                     </p>
+                </div>
+                <div class="ribbon bg-lime">
+                    <i class="far fa-star"></i>
                 </div>
             </div>
         </div>
         
         <div class="col-4">
-            <div class="card card-home">
+            <div class="card card-stacked">
                 <div class="card-body">
                     <h4 class="card-title">Technologies</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">Les dernières technologies :</h6>
+                    <h5 class="card-subtitle mb-2 text-muted">Les dernières technologies :</h5>
                     <p class="card-text">
                         <ul>
                             {% for technology in technologies %}
-                            <li><a href="{{ path('admin_technology_edit', {id: technology.id}) }}" class="card-link">{{ technology.name }}</a></li>
+                            <li class="mt-1"><a href="{{ path('admin_technology_edit', {id: technology.id}) }}" class="card-link text-decoration-underline">{{ technology.name }}</a></li>
                             {% endfor %}
                         </ul>
                     </p>
+                </div>
+                <div class="ribbon bg-teal">
+                    <i class="far fa-star"></i>
                 </div>
             </div>
         </div>
