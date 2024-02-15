@@ -1,33 +1,36 @@
-<!DOCTYPE html>
-<html>
-    <head>
-		<meta charset="UTF-8">
-		<title>{% block title %}Administration{% endblock %} - Hippolyte Thomas</title>
-		<link rel="stylesheet" href="/css/bootstrap.min.css">
-		<link rel="stylesheet" href="/css/slimselect.min.css">
-		<link rel="stylesheet" href="/css/admin.css">
-		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-		{% include 'admin/partials/header.html.twig' %}
+{% extends '@Tabler/layout-horizontal.html.twig' %}
 
-        <div class="bd-main">
-		    {% block body %}{% endblock %}
+{% set title_base = '- Hippolyte Thomas' %}
+
+{% block title %}Dashboard {{ title_base }}{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+{% block page_pretitle %}{% endblock %}
+{% block page_actions %}{% endblock %}
+{% block page_subtitle %}{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/slimselect.min.css">
+    <link rel="stylesheet" href="/css/admin.css">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/js/slimselect.min.js"></script>
+{% endblock %}
+
+{% block navbar_notifications %}{% endblock %}
+
+{% block footer %}
+    <footer id="{% block footer_id %}{% endblock %}" class="footer footer-transparent d-print-none">
+        <div class="{{ ''|tabler_container }}">
+            {% include 'admin/partials/footer.html.twig' %}
         </div>
-
-		{% include 'admin/partials/footer.html.twig' %}
-        
-		<script src="/js/bootstrap.bundle.min.js"></script>
-		<script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
-		<script src="/js/jquery.slim.min.js"></script>
-		<script src="/js/slimselect.min.js"></script>
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </body>
-</html>
+    </footer>
+{% endblock %}
