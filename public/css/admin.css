@@ -22,17 +22,26 @@
     border: 1px solid #ced4da;
     object-fit: contain;
 }
-.vich-image .show-picture {
+.vich-image #show-picture {
     position: relative;
 }
-.vich-image .show-picture .btn {
+.vich-image #show-picture .btn {
     position: absolute;
     top: 5px;
     right: 5px;
-    border: 1px solid var(--bs-btn-border-color);
-    padding: 0 5px 4px 7px;
+    border: 1px solid var(--tblr-btn-border-color);
+    padding: 4px 5px 4px 7px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    border-radius: 0;
 }
-.vich-image .edit-picture {
+.vich-image #show-picture .btn:hover {
+    background-color: #555859;
+    border-color: #4b4e50;
+}
+.vich-image #edit-picture {
     display: none;
 }
 
