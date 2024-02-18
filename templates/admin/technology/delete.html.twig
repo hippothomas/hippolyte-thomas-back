@@ -1,11 +1,13 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Suppression de la technologie "{{technology.name}}"{% endblock %}
+{% block title %}Suppression de la technologie "{{technology.name}}" {{ title_base }}{% endblock %}
+{% block page_title %}Supprimer la technologie{% endblock %}
+{% block page_pretitle %}Technologies{% endblock %}
 
-{% block body %}
+{% block page_content %}
 <div class="container mb-5">
     <div class="card bg-light mb-3 my-5">
-        <div class="card-header">Suppression de la technologie : <strong>{{technology.name}}</strong></div>
+        <div class="card-header">Suppression de la technologie "<strong>{{technology.name}}</strong>"</div>
         <div class="card-body">
             <h4 class="card-title">Êtes-vous sûr de vouloir supprimer la technologie "<strong>{{technology.name}}</strong>" (ID: {{technology.id}}) ?</h4>
             <p class="card-text">En supprimant <strong>{{technology.name}}</strong>, toutes les données de cette technologie seront détruites. Cette action est irréversible, les données ne seront pas récupérable.</p>
