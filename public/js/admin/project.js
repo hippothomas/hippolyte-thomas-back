@@ -1,33 +1,36 @@
-jQuery("#add-image").click(() => {
-    const index = +jQuery('#widget-pictures-counter').val();
-    const tmpl  = jQuery("#project_pictures").data("prototype").replace(/__name__/g, index);
-    
-    jQuery("#project_pictures").append(tmpl);
+document.getElementById('add-image').addEventListener('click', () => {
+    const index = +document.getElementById('widget-pictures-counter').value;
+    let tmpl = document.createElement('div');
+    tmpl.innerHTML  = document.getElementById("project_pictures").getAttribute("data-prototype").replace(/__name__/g, index);
 
-    jQuery('#widget-pictures-counter').val(index + 1);
+    document.getElementById("project_pictures").appendChild(tmpl);
+    document.getElementById('widget-pictures-counter').value = index + 1;
 
     handleDeleteButtons();
 });
 
 function handleDeleteButtons() {
-    jQuery('button[data-action="delete"]').click(function() {
-        const target = jQuery(this).data("target");
-        jQuery(target).remove();
+    document.querySelectorAll('button[data-action="delete"]').forEach((el) => {
+        el.addEventListener('click', (e) => {
+            const target = (e.target.tagName === 'I') ? e.target.parentElement : e.target;
+            document.querySelector(target.getAttribute('data-target')).remove();
+        });
     });
 }
 
 function updateCounter(id) {
-    const count = +jQuery("#project_"+id+" div.form-group").length;
-    jQuery('#widget-'+id+'-counter').val(count);
+    const count = document.querySelectorAll("#project_"+id+" div.form-group").length;
+    document.getElementById('widget-'+id+'-counter').value = count;
 }
 
 updateCounter('pictures');
 handleDeleteButtons();
 
-jQuery("#project_technologies").removeClass('form-select');
-new SlimSelect({
-    select: '#project_technologies',
+new TomSelect('#project_technologies', {
     placeholder: 'Ajouter une technologie',
-    searchText: 'Aucun résultat...',
-    searchPlaceholder: 'Chercher une technologie',
-})
+    render: {
+        no_results: function (data, escape) {
+            return '<div class="no-results">Aucun résultat pour "' + escape(data.input) + '"</div>';
+        }
+    }
+});
