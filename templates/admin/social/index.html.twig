@@ -1,19 +1,15 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Administration des Réseaux{% endblock %}
+{% block title %}Réseaux {{ title_base }}{% endblock %}
+{% block page_title %}Gestion des Réseaux{% endblock %}
+{% block page_pretitle %}Réseaux{% endblock %}
+{% block page_actions %}
+    <a href="{{ path('admin_social_new') }}" class="btn btn-success">Créer un nouveau Réseau</a>
+{% endblock %}
 
-{% block body %}
+{% block page_content %}
 <div class="container mb-5">
-    <div class="row align-items-center my-5">
-        <div class="col">
-            <h1>Gestion des Réseaux</h1>
-        </div>
-        <div class="col d-flex justify-content-end">
-            <a href="{{ path('admin_social_new') }}" class="btn btn-success">Créer un nouveau Réseau</a>
-        </div>
-    </div>
-    
-    <table class="table table-hover">
+    <table class="table table-vcenter table-nowrap">
         <thead>
             <tr>
                 <th>ID</th>
@@ -27,8 +23,8 @@
                 <tr>
                     <td>{{social.id}}</td>
                     <td>{{social.name}}</td>
-                    <td>{{social.link}}</td>
-                    <td>
+                    <td><a href="{{social.link}}" target="_blank">{{social.link}}</a></td>
+                    <td class="table-actions">
                         <a href="{{ path('admin_social_edit', {id: social.id}) }}" class="btn btn-primary"><i class="fas fa-edit fa-sm"></i></a>
                         <a href="{{ path('admin_social_delete', {id: social.id}) }}" class="btn btn-warning"><i class="fas fa-trash fa-sm"></i></a>
                     </td>

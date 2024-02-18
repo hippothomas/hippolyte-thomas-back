@@ -1,11 +1,13 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Suppression du réseau "{{social.name}}"{% endblock %}
+{% block title %}Suppression du réseau "{{social.name}}" {{ title_base }}{% endblock %}
+{% block page_title %}Supprimer le réseau{% endblock %}
+{% block page_pretitle %}Réseaux{% endblock %}
 
-{% block body %}
+{% block page_content %}
 <div class="container mb-5">
     <div class="card bg-light mb-3 my-5">
-        <div class="card-header">Suppression du réseau : <strong>{{social.name}}</strong></div>
+        <div class="card-header">Suppression du réseau "<strong>{{social.name}}</strong>"</div>
         <div class="card-body">
             <h4 class="card-title">Êtes-vous sûr de vouloir supprimer le réseau "<strong>{{social.name}}</strong>" (ID: {{social.id}}) ?</h4>
             <p class="card-text">En supprimant <strong>{{social.name}}</strong>, toutes les données de ce réseau seront détruites. Cette action est irréversible, les données ne seront pas récupérable.</p>
