@@ -1,15 +1,15 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Administration de À propos{% endblock %}
+{% block title %}À propos {{ title_base }}{% endblock %}
+{% block page_pretitle %}À propos{% endblock %}
+{% block page_title %}Gestion de mes informations{% endblock %}
 
 {% form_theme form with [
     'admin/about_me/_picture.html.twig'
 ] %}
 
-{% block body %}
+{% block page_content %}
 <div class="container">
-    <h1 class="my-5">Gestion de mes informations</h1>
-    
     {{ form_start(form) }}
 
     {{ form_widget(form) }}
@@ -21,5 +21,6 @@
 {% endblock %}
 
 {% block javascripts %}
-<script src="/js/admin/pictures.js"></script>
+    {{ parent() }}
+    <script src="/js/admin/pictures.js"></script>
 {% endblock %}
