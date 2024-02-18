@@ -1,11 +1,11 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Administration de la technologie "{{technology.name}}"{% endblock %}
+{% block title %}Technologie "{{technology.name}}" {{ title_base }}{% endblock %}
+{% block page_title %}Modifier la technologie{% endblock %}
+{% block page_pretitle %}Technologies{% endblock %}
 
-{% block body %}
+{% block page_content %}
 <div class="container mb-2">
-    <h1 class="my-5">Modification de la technologie : <strong>{{technology.name}}</strong></h1>
-    
     {{ form_start(form) }}
 
     {{ form_widget(form) }}
@@ -15,21 +15,27 @@
     {{ form_end(form) }}
 </div>
 <div class="container mb-5">
-    <h2 class="my-4">Projets lié à cette technologie :</strong></h2>
+    <h2 class="my-4">Projets lié à cette technologie :</h2>
     
     {% if technology.projects|length == 0 %}
     <p>Aucun projet n'est relié à cette technologie pour le moment...</p>
     {% else %}
     <div class="row">
         {% for project in technology.projects %}
-        <div class="col-4">
-            <div class="card mb-3">
-                <div class="card-body" style="min-height: 115px">
-                    <h4 class="card-title">{{project.name}} ({{project.id}})</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">{{project.introduction}}</h5>
+        <div class="col-4 mb-2">
+            <div class="card d-flex flex-column">
+                <a href="{{ path('admin_project', {id: project.id}) }}" target="_blank">
+                    <img class="card-img-top" src="{{ vich_uploader_asset(project.pictures.first) }}" alt="{{project.pictures.first.caption}}" width="100%" height="200" style="object-fit: cover;" />
+                </a>
+                <div class="card-body d-flex flex-column">
+                    <h4 class="card-title">
+                        <a href="{{ path('admin_project', {id: project.id}) }}" target="_blank">
+                            {{project.name}} #{{project.id}}
+                        </a>
+                    </h4>
+                    <div class="text-secondary">{{project.introduction}}</div>
                 </div>
-                <img src="{{ vich_uploader_asset(project.pictures.first) }}" alt="{{project.pictures.first.caption}}" class="d-block user-select-none" width="100%" height="200" style="object-fit: cover;" />
-            </div>        
+            </div>
         </div>
         {% endfor %}
     </div>
