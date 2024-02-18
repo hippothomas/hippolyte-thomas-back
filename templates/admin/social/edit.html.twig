@@ -1,13 +1,13 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Administration du réseau "{{social.name}}"{% endblock %}
+{% block title %}Réseau "{{social.name}}" {{ title_base }}{% endblock %}
+{% block page_title %}Modifier le réseau{% endblock %}
+{% block page_pretitle %}Réseaux{% endblock %}
 
 {% form_theme form 'admin/social/_picture.html.twig' %}
 
-{% block body %}
+{% block page_content %}
 <div class="container mb-5">
-    <h1 class="my-5">Modification du réseau : <strong>{{social.name}}</strong></h1>
-    
     {{ form_start(form) }}
 
     {{ form_widget(form) }}
@@ -19,5 +19,6 @@
 {% endblock %}
 
 {% block javascripts %}
-<script src="/js/admin/pictures.js"></script>
+    {{ parent() }}
+    <script src="/js/admin/pictures.js"></script>
 {% endblock %}
