@@ -51,3 +51,14 @@
 .flashes button.btn-close {
   filter: inherit;
 }
+
+.table-actions {
+    padding: .5rem;
+}
+.table-actions a {
+    height: 30px;
+}
+.ts-wrapper.multi .ts-control > div {
+    background: var(--tblr-blue);
+    color: var(--tblr-white);
+}
