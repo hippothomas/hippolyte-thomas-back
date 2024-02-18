@@ -1,13 +1,13 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Création d'un réseau{% endblock %}
+{% block title %}Création d'un réseau {{ title_base }}{% endblock %}
+{% block page_title %}Créer un réseau{% endblock %}
+{% block page_pretitle %}Réseaux{% endblock %}
 
 {% form_theme form 'admin/social/_picture.html.twig' %}
 
-{% block body %}
+{% block page_content %}
 <div class="container mb-5">
-    <h1 class="my-5">Création d'un réseau</h1>
-    
     {{ form_start(form) }}
 
     {{ form_widget(form) }}
