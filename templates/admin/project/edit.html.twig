@@ -9,7 +9,7 @@
 ] %}
 
 {% block page_content %}
-<div class="container mb-5">
+<div class="container mb-5" id="project">
     {{ form_start(form) }}
 
     {{ form_widget(form) }}
@@ -18,9 +18,4 @@
 
     {{ form_end(form) }}
 </div>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script src="/js/admin/project.js"></script>
 {% endblock %}
