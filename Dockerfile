@@ -40,8 +40,7 @@ RUN composer dump-autoload --no-dev --classmap-authoritative && \
     rm /usr/local/bin/composer
 
 ## Install assets
-RUN php bin/console ckeditor:install --tag=4.22.1 --quiet && \
-    php bin/console assets:install
+RUN php bin/console assets:install
 
 ## Change files owner to apache default user
 RUN chown -R www-data:www-data /var/www/html
