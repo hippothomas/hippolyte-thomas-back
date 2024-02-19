@@ -17,4 +17,5 @@ return [
     Sentry\SentryBundle\SentryBundle::class => ['prod' => true],
     HWI\Bundle\OAuthBundle\HWIOAuthBundle::class => ['all' => true],
     KevinPapst\TablerBundle\TablerBundle::class => ['all' => true],
+    Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
 ];
