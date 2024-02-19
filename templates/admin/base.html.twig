@@ -16,12 +16,14 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    {{ encore_entry_link_tags('app') }}
     <link rel="stylesheet" href="/css/tom-select.css">
     <link rel="stylesheet" href="/css/admin.css">
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
+    {{ encore_entry_script_tags('app') }}
     <script src="/js/tom-select.min.js"></script>
 {% endblock %}
 
