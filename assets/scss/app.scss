@@ -1,0 +1,78 @@
+// Libs
+// ==================
+@import 'tom-select/dist/css/tom-select.css';
+
+.ss-main .ss-multi-selected {
+  padding: .375rem .75rem;
+  border: 1px solid var(--bs-gray-400);
+  border-radius: 0;
+
+  .ss-values .ss-value {
+    background-color: var(--bs-blue);
+    font-size: 14px;
+  }
+
+  .ss-add {
+    margin: 12px 12px 0 5px;
+  }
+}
+
+.vich-image {
+  width: 100%;
+  max-height: 150px;
+  display: flex;
+  justify-content: center;
+
+  #show-picture {
+    position: relative;
+
+    .btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      border: 1px solid var(--tblr-btn-border-color);
+      padding: 4px 5px 4px 7px;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      font-size: 16px;
+      border-radius: 0;
+
+      &:hover {
+        background-color: #555859;
+        border-color: #4b4e50;
+      }
+    }
+  }
+
+  #edit-picture {
+    display: none;
+  }
+}
+
+.vich-image-pic {
+  max-height: 150px;
+  border: 1px solid #ced4da;
+  object-fit: contain;
+}
+
+.footer {
+  padding: 1rem 0;
+}
+
+.flashes button.btn-close {
+  filter: inherit;
+}
+
+.table-actions {
+  padding: .5rem;
+
+  a {
+    height: 30px;
+  }
+}
+
+.ts-wrapper.multi .ts-control > div {
+  background: var(--tblr-blue);
+  color: var(--tblr-white);
+}
