@@ -19,7 +19,11 @@ class ProjectType extends ApplicationType
             ->add('name', TextType::class, $this->getConfiguration('Nom', 'Nom du projet'))
             ->add('slug', TextType::class, $this->getConfiguration('Slug', 'Chaine URL du projet (auto)', ['required' => false]))
             ->add('introduction', TextType::class, $this->getConfiguration('Introduction', 'Description courte du projet (1 phrase)'))
-            ->add('description', TextareaType::class, $this->getConfiguration('Description', 'Description détaillée du projet'))
+            ->add('description', TextareaType::class, $this->getConfiguration('Description', 'Description détaillée du projet', [
+                'attr' => [
+                    'class' => 'tinymce',
+                ],
+            ]))
             ->add('technologies', EntityType::class, [
                 'label' => 'Technologies',
                 'class' => Technology::class,
