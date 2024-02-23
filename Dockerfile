@@ -1,5 +1,20 @@
 ARG VERSION="8.3"
 
+# Install frontend dependencies and build JS and CSS
+FROM node:alpine as npm
+
+WORKDIR /app
+
+COPY ./package.json /app/
+COPY ./package-lock.json /app/
+
+RUN npm install
+
+COPY ./webpack.config.js /app/
+COPY ./assets /app/assets/
+
+RUN mkdir -p /app/public/build && npm run build
+
 FROM php:${VERSION}-apache
 
 # Set the working directory in the container
@@ -7,6 +22,9 @@ WORKDIR /var/www/html
 
 # Copy the code into the container
 COPY . .
+
+# Copy assets
+COPY --from=npm /app/public/build/ /app/public/build/
 
 ## Set default php.ini
 RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
