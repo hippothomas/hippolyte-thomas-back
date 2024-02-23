@@ -6,6 +6,7 @@ use App\Repository\TechnologyRepository;
 use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -28,6 +29,14 @@ class Technology
     #[Groups('technology')]
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
+
+    #[Groups('technology')]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $created = null;
+
+    #[Groups('technology')]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $updated = null;
 
     /**
      * @var Collection<int, Project> $projects
@@ -105,5 +114,42 @@ class Technology
         }
 
         return $this;
+    }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(\DateTimeInterface $created): self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?\DateTimeInterface
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(\DateTimeInterface $updated): self
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function updateTimestamps(): void
+    {
+        $dateTimeNow = new \DateTime('now');
+
+        $this->setUpdated($dateTimeNow);
+
+        if (null === $this->getCreated()) {
+            $this->setCreated($dateTimeNow);
+        }
     }
 }

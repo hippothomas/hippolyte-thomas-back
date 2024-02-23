@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MediaRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -38,15 +39,12 @@ class Media
     private ?Project $project = null;
 
     #[Groups('media')]
-    #[ORM\Column(type: 'datetime')]
-    private \DateTime $updated;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $created = null;
 
-    #[ORM\PrePersist]
-    #[ORM\PreUpdate]
-    public function update(): void
-    {
-        $this->setUpdated(new \DateTime());
-    }
+    #[Groups('media')]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $updated = null;
 
     public function getId(): ?int
     {
@@ -105,16 +103,41 @@ class Media
         return $this;
     }
 
-    public function getUpdated(): ?\DateTime
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(\DateTimeInterface $created): self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?\DateTimeInterface
     {
         return $this->updated;
     }
 
-    public function setUpdated(\DateTime $updated): self
+    public function setUpdated(\DateTimeInterface $updated): self
     {
         $this->updated = $updated;
 
         return $this;
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function updateTimestamps(): void
+    {
+        $dateTimeNow = new \DateTime('now');
+
+        $this->setUpdated($dateTimeNow);
+
+        if (null === $this->getCreated()) {
+            $this->setCreated($dateTimeNow);
+        }
     }
 
     #[Assert\Callback]

@@ -55,6 +55,14 @@ class Project
     #[Assert\Count(min: 1, minMessage: 'Vous devez sélectionner au moins une valeur !')]
     private Collection $technologies;
 
+    #[Groups('project')]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $created = null;
+
+    #[Groups('project')]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $updated = null;
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
@@ -176,5 +184,42 @@ class Project
         $this->technologies->removeElement($technology);
 
         return $this;
+    }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(\DateTimeInterface $created): self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?\DateTimeInterface
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(\DateTimeInterface $updated): self
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function updateTimestamps(): void
+    {
+        $dateTimeNow = new \DateTime('now');
+
+        $this->setUpdated($dateTimeNow);
+
+        if (null === $this->getCreated()) {
+            $this->setCreated($dateTimeNow);
+        }
     }
 }
