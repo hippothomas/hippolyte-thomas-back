@@ -1,4 +1,5 @@
 import TomSelect from "tom-select"
+import TinyMCE from "tinymce"
 
 export function project() {
     document.getElementById('add-image').addEventListener('click', () => {
@@ -36,5 +37,11 @@ export function project() {
                 return '<div class="no-results">Aucun résultat pour "' + escape(data.input) + '"</div>';
             }
         }
+    });
+
+    TinyMCE.init({
+        selector: '.tinymce',
+        plugins: 'advlist link image lists code codesample',
+        toolbar: 'undo redo | styles | bold italic underline | link image forecolor codesample | alignleft aligncenter alignright alignjustify'
     });
 }
