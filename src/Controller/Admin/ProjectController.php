@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Entity\Project;
 use App\Form\ProjectType;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminProjectController extends AbstractController
+class ProjectController extends AbstractController
 {
     #[Route('/admin/projects', name: 'admin_projects')]
     public function index(ProjectRepository $repo): Response

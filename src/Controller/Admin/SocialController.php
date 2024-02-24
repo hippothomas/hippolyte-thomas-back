@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Entity\Social;
 use App\Form\SocialType;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminSocialController extends AbstractController
+class SocialController extends AbstractController
 {
     #[Route('/admin/socials', name: 'admin_socials')]
     public function index(SocialRepository $repo): Response
