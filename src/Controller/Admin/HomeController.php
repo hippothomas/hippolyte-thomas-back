@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Repository\ProjectRepository;
 use App\Repository\SocialRepository;
@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminHomeController extends AbstractController
+class HomeController extends AbstractController
 {
     #[Route('/admin/', name: 'admin_home')]
     public function index(ProjectRepository $projects, SocialRepository $socials, TechnologyRepository $technologies): Response
