@@ -13,7 +13,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class ProjectController extends AbstractController
 {
-    #[Route('/api/projects', name: 'api_projects', methods: ['GET'])]
+    #[Route('/api/projects', name: 'api_projects_v1', methods: ['GET'])]
+    #[Route('/v2/projects', name: 'api_projects', methods: ['GET'])]
     public function getProjects(ProjectRepository $project, SerializerInterface $serializer): JsonResponse
     {
         $data = $project->findAllPublished();
@@ -22,7 +23,8 @@ class ProjectController extends AbstractController
         return new JsonResponse($json, Response::HTTP_OK, [], true);
     }
 
-    #[Route('/api/project/{slug}', name: 'api_project', methods: ['GET'])]
+    #[Route('/api/project/{slug}', name: 'api_project_v1', methods: ['GET'])]
+    #[Route('/v2/projects/{slug}', name: 'api_project', methods: ['GET'])]
     public function getProject(Project $project, SerializerInterface $serializer): JsonResponse
     {
         // Check if the project is published

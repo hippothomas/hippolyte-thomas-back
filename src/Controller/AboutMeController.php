@@ -11,7 +11,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class AboutMeController extends AbstractController
 {
-    #[Route('/api/about-me', name: 'api_about_me', methods: ['GET'])]
+    #[Route('/api/about-me', name: 'api_about_me_v1', methods: ['GET'])]
+    #[Route('/v2/about-me', name: 'api_about_me', methods: ['GET'])]
     public function getAboutMe(AboutMeRepository $about_me, SerializerInterface $serializer): JsonResponse
     {
         $data = $about_me->findAll();

@@ -11,7 +11,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class SocialController extends AbstractController
 {
-    #[Route('/api/socials', name: 'api_socials', methods: ['GET'])]
+    #[Route('/api/socials', name: 'api_socials_v1', methods: ['GET'])]
+    #[Route('/v2/socials', name: 'api_socials', methods: ['GET'])]
     public function getSocials(SocialRepository $social, SerializerInterface $serializer): JsonResponse
     {
         $data = $social->findAll();
