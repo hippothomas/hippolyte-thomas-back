@@ -63,6 +63,10 @@ class Project
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updated = null;
 
+    #[Groups('project')]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $published = null;
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
@@ -221,5 +225,17 @@ class Project
         if (null === $this->getCreated()) {
             $this->setCreated($dateTimeNow);
         }
+    }
+
+    public function getPublished(): ?\DateTimeInterface
+    {
+        return $this->published;
+    }
+
+    public function setPublished(\DateTimeInterface $published = null): self
+    {
+        $this->published = $published;
+
+        return $this;
     }
 }

@@ -6,6 +6,7 @@ use App\Entity\Project;
 use App\Entity\Technology;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,6 +19,15 @@ class ProjectType extends ApplicationType
         $builder
             ->add('name', TextType::class, $this->getConfiguration('Nom', 'Nom du projet'))
             ->add('slug', TextType::class, $this->getConfiguration('Slug', 'Chaine URL du projet (auto)', ['required' => false]))
+            ->add('published', DateTimeType::class, $this->getConfiguration('Publié le', 'Chaine URL du projet (auto)', [
+                'widget' => 'single_text',
+                'html5' => false,
+                'format' => 'yyyy-MM-dd H:mm:ss',
+                'attr' => [
+                    'class' => 'datepicker',
+                ],
+                'required' => false,
+            ]))
             ->add('introduction', TextType::class, $this->getConfiguration('Introduction', 'Description courte du projet (1 phrase)'))
             ->add('description', TextareaType::class, $this->getConfiguration('Description', 'Description détaillée du projet', [
                 'attr' => [

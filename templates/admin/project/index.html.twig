@@ -14,6 +14,7 @@
             <tr>
                 <th>ID</th>
                 <th>Nom</th>
+                <th>Statut</th>
                 <th>Slug</th>
                 <th>Technologies</th>
                 <th>Action</th>
@@ -24,6 +25,13 @@
                 <tr>
                     <td>{{project.id}}</td>
                     <td>{{project.name}}</td>
+                    <td>
+                        {% if project.published == null or project.published > date() %}
+                            <span class="badge">Brouillon</span>
+                        {% else %}
+                            <span class="badge bg-green">Publié</span>
+                        {% endif %}
+                    </td>
                     <td>{{project.slug}}</td>
                     <td>
                         {% for techno in project.technologies %}
