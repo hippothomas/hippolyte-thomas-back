@@ -49,9 +49,9 @@ export function project() {
 
     new AirDatepicker('.datepicker', {
         locale: localeFr,
-        dateFormat: 'yyyy-MM-dd',
+        dateFormat: 'dd/MM/yyyy',
         timepicker: true,
-        timeFormat: 'H:mm:00',
+        timeFormat: 'HH:mm:00',
         buttons: ['today', 'clear']
     });
 }
