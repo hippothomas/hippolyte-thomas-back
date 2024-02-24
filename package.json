@@ -21,6 +21,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "air-datepicker": "^3.4.0",
         "tinymce": "^6.8.3",
         "tom-select": "^2.3.1"
     }
