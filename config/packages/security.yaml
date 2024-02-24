@@ -28,6 +28,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+        - { path: ^/api, roles: PUBLIC_ACCESS } # Temporarily supporting access to API v1
         - { path: ^/admin/login, roles: PUBLIC_ACCESS }
         - { path: ^/admin/connect, roles: PUBLIC_ACCESS }
         - { path: ^/admin, roles: ROLE_ADMIN }
