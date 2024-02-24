@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Entity\AboutMe;
 use App\Form\AboutMeType;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminAboutMeController extends AbstractController
+class AboutMeController extends AbstractController
 {
     #[Route('/admin/about-me', name: 'admin_about_me')]
     public function edit(AboutMeRepository $repo, Request $request, EntityManagerInterface $manager): Response

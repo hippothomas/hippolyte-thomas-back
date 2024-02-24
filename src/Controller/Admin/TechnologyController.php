@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Entity\Technology;
 use App\Form\TechnologyType;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminTechnologyController extends AbstractController
+class TechnologyController extends AbstractController
 {
     #[Route('/admin/technologies', name: 'admin_technologies')]
     public function index(TechnologyRepository $repo): Response
