@@ -25,6 +25,17 @@ class ProjectRepository extends ServiceEntityRepository
         return $this->findBy([], ['id' => 'DESC']);
     }
 
+    public function findAllPublished(): mixed
+    {
+        return $this->createQueryBuilder('p')
+                     ->where('p.published IS NOT NULL')
+                     ->where('p.published < :now')
+                     ->setParameter('now', new \DateTime())
+                     ->orderBy('p.id', 'DESC')
+                     ->getQuery()
+                     ->getResult();
+    }
+
     public function save(Project $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

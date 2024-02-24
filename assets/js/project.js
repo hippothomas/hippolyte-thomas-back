@@ -1,5 +1,7 @@
 import TomSelect from "tom-select"
 import TinyMCE from "tinymce"
+import AirDatepicker from "air-datepicker"
+import localeFr from "air-datepicker/locale/fr"
 
 export function project() {
     document.getElementById('add-image').addEventListener('click', () => {
@@ -43,5 +45,13 @@ export function project() {
         selector: '.tinymce',
         plugins: 'advlist link image lists code codesample',
         toolbar: 'undo redo | styles | bold italic underline | link image forecolor codesample | alignleft aligncenter alignright alignjustify'
+    });
+
+    new AirDatepicker('.datepicker', {
+        locale: localeFr,
+        dateFormat: 'yyyy-MM-dd',
+        timepicker: true,
+        timeFormat: 'H:mm:00',
+        buttons: ['today', 'clear']
     });
 }
