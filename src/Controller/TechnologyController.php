@@ -12,7 +12,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class TechnologyController extends AbstractController
 {
-    #[Route('/api/technologies', name: 'api_technologies', methods: ['GET'])]
+    #[Route('/api/technologies', name: 'api_technologies_v1', methods: ['GET'])]
+    #[Route('/v2/technologies', name: 'api_technologies', methods: ['GET'])]
     public function getTechnologies(TechnologyRepository $technology, SerializerInterface $serializer): JsonResponse
     {
         $data = $technology->findAll();
@@ -21,7 +22,8 @@ class TechnologyController extends AbstractController
         return new JsonResponse($json, Response::HTTP_OK, [], true);
     }
 
-    #[Route('/api/technology/{slug}', name: 'api_technology', methods: ['GET'])]
+    #[Route('/api/technology/{slug}', name: 'api_technology_v1', methods: ['GET'])]
+    #[Route('/v2/technologies/{slug}', name: 'api_technology', methods: ['GET'])]
     public function getTechnology(Technology $technology, SerializerInterface $serializer): JsonResponse
     {
         $json = $serializer->serialize($technology, 'json', ['groups' => ['technology', 'technology_details', 'project']]);
