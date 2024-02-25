@@ -17,22 +17,15 @@ class ExceptionSubscriber implements EventSubscriberInterface
         $path = $request->getPathInfo();
 
         // Verify if in API context
-        if (str_starts_with($path, '/api')) {
+        if (str_starts_with($path, '/api') || str_starts_with($path, '/v2')) {
+            $status = 500; // return 500 by default when it's not an HTTP exception
             if ($exception instanceof HttpException) {
-                $data = [
-                    'status' => $exception->getStatusCode(),
-                    'message' => $exception->getMessage(),
-                ];
-
-                $event->setResponse(new JsonResponse($data));
-            } else {
-                $data = [
-                    'status' => 500, // return 500 by default when it's not an HTTP exception
-                    'message' => $exception->getMessage(),
-                ];
-
-                $event->setResponse(new JsonResponse($data));
+                $status = $exception->getStatusCode();
             }
+            $event->setResponse(new JsonResponse([
+                'status' => $status,
+                'message' => $exception->getMessage(),
+            ], $status));
         }
     }
 
