@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -41,6 +43,17 @@ class User implements UserInterface
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updated = null;
+
+    /**
+     * @var Collection<int, ApiKey> $apiKeys
+     */
+    #[ORM\OneToMany(mappedBy: 'account', targetEntity: ApiKey::class, orphanRemoval: true)]
+    private Collection $apiKeys;
+
+    public function __construct()
+    {
+        $this->apiKeys = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -131,5 +144,35 @@ class User implements UserInterface
         if (null === $this->getCreated()) {
             $this->setCreated($dateTimeNow);
         }
+    }
+
+    /**
+     * @return Collection<int, ApiKey>
+     */
+    public function getApiKeys(): Collection
+    {
+        return $this->apiKeys;
+    }
+
+    public function addApiKey(ApiKey $apiKey): static
+    {
+        if (!$this->apiKeys->contains($apiKey)) {
+            $this->apiKeys->add($apiKey);
+            $apiKey->setAccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApiKey(ApiKey $apiKey): static
+    {
+        if ($this->apiKeys->removeElement($apiKey)) {
+            // set the owning side to null (unless already changed)
+            if ($apiKey->getAccount() === $this) {
+                $apiKey->setAccount(null);
+            }
+        }
+
+        return $this;
     }
 }

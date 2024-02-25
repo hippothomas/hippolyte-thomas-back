@@ -3,12 +3,16 @@ security:
     providers:
         oauth_provider:
             id: App\Security\OAuthUserProvider
+        user_provider:
+            entity:
+                class: 'App\Entity\User'
+                property: 'username'
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
-            pattern: ^/
+        admin:
+            pattern: ^/admin/
             oauth:
                 resource_owners:
                     keycloak: "/admin/login/check-keycloak"
@@ -16,6 +20,7 @@ security:
                 use_forward:  false
                 failure_path: /admin/login
                 default_target_path: /admin
+                check_path: /admin/login_check
 
                 oauth_user_provider:
                     service: App\Security\OAuthUserProvider
@@ -24,6 +29,12 @@ security:
             logout:
                 path: /admin/logout
                 target: /admin/login
+        api:
+            pattern: ^/v2/
+            stateless: true
+            provider: user_provider
+            custom_authenticator:
+                - App\Security\ApiKeyAuthenticator
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
