@@ -19,7 +19,7 @@ class ProjectType extends ApplicationType
         $builder
             ->add('name', TextType::class, $this->getConfiguration('Nom', 'Nom du projet'))
             ->add('slug', TextType::class, $this->getConfiguration('Slug', 'Chaine URL du projet (auto)', ['required' => false]))
-            ->add('published', DateTimeType::class, $this->getConfiguration('Date de publication', 'Chaine URL du projet (auto)', [
+            ->add('published', DateTimeType::class, $this->getConfiguration('Date de publication', '', [
                 'widget' => 'single_text',
                 'html5' => false,
                 'input_format' => 'dd/MM/yyyy HH:mm:ss',
