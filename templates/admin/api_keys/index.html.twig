@@ -1,0 +1,70 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Clés API {{ title_base }}{% endblock %}
+{% block page_pretitle %}Compte{% endblock %}
+{% block page_title %}Gestion de mes clés API{% endblock %}
+{% block page_actions %}
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#generateKeyModal">
+        Générer une clé API
+    </button>
+{% endblock %}
+
+{% block page_content %}
+    <div class="container mb-5" id="api-keys">
+        <table class="table table-vcenter table-nowrap">
+            <thead>
+            <tr>
+                <th class="w-1">Clé</th>
+                <th class="w-50">Nom</th>
+                <th class="w-25">Expire</th>
+                <th class="w-25">Dernier accès</th>
+                <th class="w-1">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for api_key in api_keys %}
+                <tr>
+                    <td>
+                        <kbd>{{ api_key.key }}</kbd>
+                    </td>
+                    <td>
+                        {{ api_key.label }}
+                        {% if api_key.expirationDate != null and api_key.expirationDate < date() %}
+                            <span class="badge ml-1">Expirée</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-secondary">{{ api_key.expirationDate is empty ? "" : api_key.expirationDate|date('d/m/Y') }}</td>
+                    <td class="text-secondary">{{ api_key.lastAccessed is empty ? "" : api_key.lastAccessed|date('d/m/Y H:i:s') }}</td>
+                    <td class="table-actions">
+                        <a href="{{ path('admin_api_keys_delete', {key: api_key.key}) }}" class="btn btn-danger"><i class="fas fa-trash fa-sm"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal" id="generateKeyModal" tabindex="-1">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                {{ form_start(form) }}
+                <div class="modal-header">
+                    <h5 class="modal-title">Générer une clé API</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{ form_widget(form) }}
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+                        Annuler
+                    </a>
+                    <button type="submit" class="btn btn-primary ms-auto">
+                        Générer une clé API
+                    </button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

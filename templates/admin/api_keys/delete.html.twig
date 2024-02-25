@@ -1,0 +1,21 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Suppression de la clé "{{ name }}" {{ title_base }}{% endblock %}
+{% block page_title %}Supprimer la clé API{% endblock %}
+{% block page_pretitle %}Compte{% endblock %}
+
+{% block page_content %}
+<div class="container mb-5">
+    <div class="card bg-light mb-3 my-5">
+        <div class="card-header">Suppression de la clé API "<strong> {{ name }}</strong>"</div>
+        <div class="card-body">
+            <h4 class="card-title">Êtes-vous sûr de vouloir supprimer la clé "<strong>{{ name }}</strong>" (ID: {{api_key.id}}) ?</h4>
+            <p class="card-text">Avant de supprimer cette clé API, assurez-vous qu'aucune application ou script ne soit en train de l'utiliser. Cette action ne peut pas être annulée.</p>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+            <a href="{{ path('admin_api_keys') }}" class="btn btn-secondary">Annuler</a>
+            <a href="{{ path('admin_api_keys_delete', {key: api_key.key, confirm: true}) }}" class="btn btn-danger">Supprimer</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
