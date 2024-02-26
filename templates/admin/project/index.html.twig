@@ -26,8 +26,10 @@
                     <td>{{project.id}}</td>
                     <td>{{project.name}}</td>
                     <td>
-                        {% if project.published == null or project.published > date() %}
+                        {% if project.published == null %}
                             <span class="badge">Brouillon</span>
+                        {% elseif project.published > date() %}
+                            <span class="badge bg-azure">Planifié</span>
                         {% else %}
                             <span class="badge bg-green">Publié</span>
                         {% endif %}
