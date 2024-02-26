@@ -27,16 +27,13 @@ class ApiKeyAuthenticator extends AbstractAuthenticator
     public function supports(Request $request): ?bool
     {
         // Check if the incoming HTTP request lacks the 'api_key' parameter
-        if ($request->query->has('api_key')) {
-            return true;
-        } else {
-            throw new AuthenticationException('API Key is missing');
-        }
+        return $request->query->has('api_key');
     }
 
     public function authenticate(Request $request): Passport
     {
         $api_key = $request->query->get('api_key');
+        // Check if an API Token is provided
         if (empty($api_key)) {
             throw new CustomUserMessageAuthenticationException('No API token provided');
         }
