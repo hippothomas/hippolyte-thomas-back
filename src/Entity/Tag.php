@@ -3,10 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\TagRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: TagRepository::class)]
@@ -18,6 +20,7 @@ class Tag
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull(message: 'Nom ne peut pas être vide !')]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
@@ -67,6 +70,16 @@ class Tag
         $this->slug = $slug;
 
         return $this;
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function initializeSlug(): void
+    {
+        if (empty($this->slug)) {
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify((string) $this->name);
+        }
     }
 
     public function getCreated(): ?\DateTimeInterface

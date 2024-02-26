@@ -1,0 +1,21 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Suppression du tag "{{tag.name}}" {{ title_base }}{% endblock %}
+{% block page_title %}Supprimer le tag{% endblock %}
+{% block page_pretitle %}Articles{% endblock %}
+
+{% block page_content %}
+<div class="container mb-5">
+    <div class="card bg-light mb-3 my-5">
+        <div class="card-header">Suppression du tag "<strong>{{tag.name}}</strong>"</div>
+        <div class="card-body">
+            <h4 class="card-title">Êtes-vous sûr de vouloir supprimer le tag "<strong>{{tag.name}}</strong>" (ID: {{tag.id}}) ?</h4>
+            <p class="card-text">En supprimant <strong>{{tag.name}}</strong>, toutes les données de ce tag seront détruites. Cette action est irréversible, les données ne seront pas récupérable.</p>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+            <a href="{{ path('admin_tags') }}" class="btn btn-secondary">Annuler</a>
+            <a href="{{ path('admin_tag_delete', {id: tag.id, confirm: true}) }}" class="btn btn-danger">Supprimer</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
