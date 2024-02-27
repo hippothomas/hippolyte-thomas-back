@@ -42,10 +42,6 @@ services:
                 ignore_exceptions:
                     - Symfony\Component\HttpKernel\Exception\NotFoundHttpException
 
-    App\EventSubscriber\MenuBuilderSubscriber:
-        arguments:
-            $environment: '%kernel.environment%'
-
     App\EventSubscriber\UserDetailsSubscriber:
         arguments:
             $assetsUrl: '%assets.url%'
