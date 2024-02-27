@@ -10,11 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 readonly class MenuBuilderSubscriber implements EventSubscriberInterface
 {
-    public function __construct(
-        private string $environment
-    ) {
-    }
-
     public static function getSubscribedEvents(): array
     {
         return [
@@ -27,26 +22,27 @@ readonly class MenuBuilderSubscriber implements EventSubscriberInterface
         $event->addItem(
             new MenuItemModel('home', 'Accueil', 'admin_home', [], 'fas fa-home')
         );
-        $event->addItem(
-            new MenuItemModel('about_me', 'À propos', 'admin_about_me', [], 'fas fa-user')
-        );
-        $event->addItem(
-            new MenuItemModel('projects', 'Projets', 'admin_projects', [], 'fas fa-briefcase')
-        );
+
+        // Articles
+        $article = new MenuItemModel('posts-menu', 'Articles', null, [], 'fas fa-pen-to-square');
+        $article->addChild(new MenuItemModel('new-post', 'Nouvel article', null, [], 'fas fa-plus'));
+        $article->addChild(new MenuItemModel('posts', 'Liste des Articles', null, [], 'fas fa-bars-staggered'));
+        $article->addChild(new MenuItemModel('tags', 'Tags', 'admin_tags', [], 'fas fa-tag'));
+        $event->addItem($article);
+
+        // Projets
+        $projets = new MenuItemModel('projects-menu', 'Projets', null, [], 'fas fa-briefcase');
+        $projets->addChild(new MenuItemModel('new-project', 'Nouveau projet', 'admin_project_new', [], 'fas fa-plus'));
+        $projets->addChild(new MenuItemModel('projects', 'Liste des Projets', 'admin_projects', [], 'fas fa-bars-staggered'));
+        $projets->addChild(new MenuItemModel('technologies', 'Technologies', 'admin_technologies', [], 'fas fa-tachometer-alt'));
+        $event->addItem($projets);
+
         $event->addItem(
             new MenuItemModel('socials', 'Réseaux', 'admin_socials', [], 'fas fa-share-nodes')
         );
         $event->addItem(
-            new MenuItemModel('technologies', 'Technologies', 'admin_technologies', [], 'fas fa-tachometer-alt')
+            new MenuItemModel('about_me', 'À propos', 'admin_about_me', [], 'fas fa-user')
         );
-
-        if ('dev' === $this->environment) {
-            $toolbox = new MenuItemModel('toolbox', 'Toolbox', null, [], 'fas fa-tools');
-            $toolbox->addChild(new MenuItemModel('Error 403', 'Error 403', '_preview_error', ['code' => '403'], 'fas fa-exclamation'));
-            $toolbox->addChild(new MenuItemModel('Error 404', 'Error 404', '_preview_error', ['code' => '404'], 'fas fa-bug'));
-            $toolbox->addChild(new MenuItemModel('Error 500', 'Error 500', '_preview_error', ['code' => '500'], 'fas fa-bomb'));
-            $event->addItem($toolbox);
-        }
 
         $this->activateByRoute(
             $event->getRequest(),
