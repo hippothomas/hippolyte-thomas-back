@@ -25,8 +25,8 @@ readonly class MenuBuilderSubscriber implements EventSubscriberInterface
 
         // Articles
         $article = new MenuItemModel('posts-menu', 'Articles', null, [], 'fas fa-pen-to-square');
-        $article->addChild(new MenuItemModel('new-post', 'Nouvel article', null, [], 'fas fa-plus'));
-        $article->addChild(new MenuItemModel('posts', 'Liste des Articles', null, [], 'fas fa-bars-staggered'));
+        $article->addChild(new MenuItemModel('new-post', 'Nouvel article', 'admin_post_new', [], 'fas fa-plus'));
+        $article->addChild(new MenuItemModel('posts', 'Liste des Articles', 'admin_posts', [], 'fas fa-bars-staggered'));
         $article->addChild(new MenuItemModel('tags', 'Tags', 'admin_tags', [], 'fas fa-tag'));
         $event->addItem($article);
 

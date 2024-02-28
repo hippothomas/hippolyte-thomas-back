@@ -88,3 +88,29 @@
 .badge.ml-1 {
   margin-left: 3px !important;
 }
+
+#post {
+  label[for="post_content"]  {
+    display: none;
+  }
+  .mea-switch {
+    span {
+      margin-left: -2.5rem;
+    }
+    input {
+      width: 2.6rem;
+      height: 1.3rem;
+      cursor: pointer;
+    }
+  }
+  input[readonly="readonly"] {
+    color: var(--tblr-muted);
+    background: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border-color: var(--tblr-border-color);
+    box-shadow: 0 0 transparent;
+  }
+}
