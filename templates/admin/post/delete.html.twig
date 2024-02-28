@@ -1,0 +1,21 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Suppression de l'article "{{post.title}}" {{ title_base }}{% endblock %}
+{% block page_title %}Supprimer l'article{% endblock %}
+{% block page_pretitle %}Articles{% endblock %}
+
+{% block page_content %}
+<div class="container mb-5">
+    <div class="card bg-light mb-3 my-5">
+        <div class="card-header">Suppression de l'article "<strong> {{post.title}}</strong>"</div>
+        <div class="card-body">
+            <h4 class="card-title">Êtes-vous sûr de vouloir supprimer l'article "<strong>{{post.title}}</strong>" (ID: {{post.id}}) ?</h4>
+            <p class="card-text">En supprimant <strong>{{post.title}}</strong>, toutes les données de cet article seront détruites. Cette action est irréversible, les données ne seront pas récupérable.</p>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+            <a href="{{ path('admin_posts') }}" class="btn btn-secondary">Annuler</a>
+            <a href="{{ path('admin_post_delete', {id: post.id, confirm: true}) }}" class="btn btn-danger">Supprimer</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

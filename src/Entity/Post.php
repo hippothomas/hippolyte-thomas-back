@@ -10,8 +10,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Loggable\Loggable;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Bridge\Doctrine\Types\UuidType;
-use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[Gedmo\Loggable]
 #[ORM\HasLifecycleCallbacks]
@@ -23,10 +22,12 @@ class Post implements Loggable
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(UuidType::NAME, unique: true)]
-    private ?Uuid $uuid = null;
+    #[ORM\Column(unique: true)]
+    #[Assert\Uuid(message: "Cet UUID n'est pas valide !")]
+    private ?string $uuid = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull(message: 'Le titre ne peut pas être vide !')]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
@@ -34,6 +35,7 @@ class Post implements Loggable
 
     #[Gedmo\Versioned]
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotNull(message: 'Le contenu ne peut pas être vide !')]
     private ?string $content = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
@@ -50,6 +52,7 @@ class Post implements Loggable
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotNull(message: 'Le Tag principal doit être défini !')]
     private ?Tag $primaryTag = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
@@ -71,12 +74,12 @@ class Post implements Loggable
         return $this->id;
     }
 
-    public function getUuid(): ?Uuid
+    public function getUuid(): ?string
     {
         return $this->uuid;
     }
 
-    public function setUuid(Uuid $uuid): static
+    public function setUuid(string $uuid): static
     {
         $this->uuid = $uuid;
 

@@ -1,0 +1,20 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Article "{{post.title}}" {{ title_base }}{% endblock %}
+{% block page_title %}Modifier l'article{% endblock %}
+{% block page_pretitle %}Articles{% endblock %}
+
+{% form_theme form 'admin/post/_post.html.twig' %}
+
+{% block page_content %}
+<div class="container mb-5" id="post">
+    {{ form_start(form) }}
+
+    {% include 'admin/post/_form.html.twig' %}
+
+    <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+
+    {{ form_end(form) }}
+</div>
+{% endblock %}
+
