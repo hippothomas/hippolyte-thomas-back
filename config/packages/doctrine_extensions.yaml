@@ -1,0 +1,6 @@
+services:
+    Gedmo\Loggable\LoggableListener:
+        tags:
+            - { name: doctrine.event_listener, event: 'onFlush' }
+            - { name: doctrine.event_listener, event: 'loadClassMetadata' }
+            - { name: doctrine.event_listener, event: 'postPersist' }
