@@ -26,6 +26,14 @@ class TechnologyController extends AbstractController
     #[Route('/v2/technologies/{slug}', name: 'api_technology', methods: ['GET'])]
     public function getTechnology(Technology $technology, SerializerInterface $serializer): JsonResponse
     {
+        // Remove projects that are not published yet
+        $projects = $technology->getProjects();
+        foreach ($projects as $project) {
+            if (null === $project->getPublished() || $project->getPublished() > new \DateTime()) {
+                $technology->removeProject($project);
+            }
+        }
+
         $json = $serializer->serialize($technology, 'json', ['groups' => ['technology', 'technology_details', 'project']]);
 
         return new JsonResponse($json, Response::HTTP_OK, [], true);

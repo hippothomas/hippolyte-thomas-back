@@ -24,6 +24,14 @@ class TagController extends AbstractController
     #[Route('/v2/tags/{slug}', name: 'api_tag', methods: ['GET'])]
     public function getTag(Tag $tag, SerializerInterface $serializer): JsonResponse
     {
+        // Remove posts that are not published yet
+        $posts = $tag->getPosts();
+        foreach ($posts as $post) {
+            if (null === $post->getPublished() || $post->getPublished() > new \DateTime()) {
+                $tag->removePost($post);
+            }
+        }
+
         $json = $serializer->serialize($tag, 'json', ['groups' => ['tag', 'tag_details', 'post_summary', 'media']]);
 
         return new JsonResponse($json, Response::HTTP_OK, [], true);
