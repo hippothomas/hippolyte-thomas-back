@@ -75,6 +75,9 @@
     "kevinpapst/tabler-bundle": {
         "version": "1.2.1"
     },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v6.3.0"
+    },
     "oneup/flysystem-bundle": {
         "version": "4.4",
         "recipe": {

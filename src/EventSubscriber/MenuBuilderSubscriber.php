@@ -38,10 +38,10 @@ readonly class MenuBuilderSubscriber implements EventSubscriberInterface
         $event->addItem($projets);
 
         $event->addItem(
-            new MenuItemModel('socials', 'Réseaux', 'admin_socials', [], 'fas fa-share-nodes')
+            new MenuItemModel('medias', 'Médias', 'admin_medias', [], 'fas fa-photo-film')
         );
         $event->addItem(
-            new MenuItemModel('about_me', 'À propos', 'admin_about_me', [], 'fas fa-user')
+            new MenuItemModel('socials', 'Réseaux', 'admin_socials', [], 'fas fa-share-nodes')
         );
 
         $this->activateByRoute(
