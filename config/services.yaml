@@ -7,6 +7,10 @@ parameters:
     app.register: '%env(APP_REGISTER)%'
     assets.url: '%env(AWS_PUBLIC_URL)%/assets'
 
+twig:
+    globals:
+        assets_url: '%assets.url%'
+
 services:
     # default configuration for services in *this* file
     _defaults:
