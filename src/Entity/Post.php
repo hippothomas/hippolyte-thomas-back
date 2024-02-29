@@ -10,6 +10,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Loggable\Loggable;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[Gedmo\Loggable]
@@ -22,45 +23,56 @@ class Post implements Loggable
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['post', 'post_summary'])]
     #[ORM\Column(unique: true)]
     #[Assert\Uuid(message: "Cet UUID n'est pas valide !")]
     private ?string $uuid = null;
 
+    #[Groups(['post', 'post_summary'])]
     #[ORM\Column(length: 255)]
     #[Assert\NotNull(message: 'Le titre ne peut pas être vide !')]
     private ?string $title = null;
 
+    #[Groups(['post', 'post_summary'])]
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
+    #[Groups(['post_details'])]
     #[Gedmo\Versioned]
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotNull(message: 'Le contenu ne peut pas être vide !')]
     private ?string $content = null;
 
+    #[Groups(['post', 'post_summary'])]
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Media $featureImage = null;
 
+    #[Groups(['post', 'post_summary'])]
     #[ORM\Column]
     private bool $featured = false;
 
     /**
      * @var Collection<int, Tag> $tags
      */
+    #[Groups(['post_details'])]
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'posts')]
     private Collection $tags;
 
+    #[Groups('post')]
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotNull(message: 'Le Tag principal doit être défini !')]
     private ?Tag $primaryTag = null;
 
+    #[Groups(['post', 'post_summary'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $published = null;
 
+    #[Groups(['post_details'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $created = null;
 
+    #[Groups(['post_details'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updated = null;
 
