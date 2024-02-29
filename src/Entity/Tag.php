@@ -8,33 +8,40 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: TagRepository::class)]
 class Tag
 {
+    #[Groups('tag')]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups('tag')]
     #[ORM\Column(length: 255)]
     #[Assert\NotNull(message: 'Nom ne peut pas être vide !')]
     private ?string $name = null;
 
+    #[Groups('tag')]
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
+    #[Groups('tag')]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $created = null;
 
+    #[Groups('tag')]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updated = null;
 
     /**
      * @var Collection<int, Post> $posts
      */
+    #[Groups('tag_details')]
     #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'tags')]
     private Collection $posts;
 
