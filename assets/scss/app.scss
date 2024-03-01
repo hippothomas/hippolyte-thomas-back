@@ -85,7 +85,7 @@
 .air-datepicker-global-container {
   z-index: 2000;
 }
-.badge.ml-1 {
+.ml-1 {
   margin-left: 3px !important;
 }
 
@@ -113,4 +113,40 @@
     border-color: var(--tblr-border-color);
     box-shadow: 0 0 transparent;
   }
+}
+
+.media-img {
+  position: relative;
+  height: 0;
+  padding-bottom: 71.43%;
+  overflow: hidden;
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    background: var(--tblr-body-bg);
+  }
+}
+
+i.fas.mr-2 {
+  margin-right: 6px !important;
+}
+
+.line-input {
+  margin-top: 5px;
+  label {
+    width: 80px;
+  }
+  input:focus {
+    border-color: var(--tblr-border-color);
+    box-shadow: 0 0 transparent;
+  }
+}
+
+.text-weight-inherit {
+  font-weight: inherit;
 }

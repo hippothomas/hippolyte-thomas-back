@@ -1,0 +1,21 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Suppression du Média "{{name}}" {{ title_base }}{% endblock %}
+{% block page_title %}Supprimer le Média{% endblock %}
+{% block page_pretitle %}Médias{% endblock %}
+
+{% block page_content %}
+<div class="container mb-5">
+    <div class="card bg-light mb-3 my-5">
+        <div class="card-header">Suppression du média "<strong> {{name}}</strong>"</div>
+        <div class="card-body">
+            <h4 class="card-title">Êtes-vous sûr de vouloir supprimer le média "<strong>{{name}}</strong>" (ID: {{media.id}}) ?</h4>
+            <p class="card-text">En supprimant <strong>{{name}}</strong>, toutes les données de ce média seront détruites. Cette action est irréversible, les données ne seront pas récupérable.</p>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+            <a href="{{ path('admin_medias') }}" class="btn btn-secondary">Annuler</a>
+            <a href="{{ path('admin_media_delete', {id: media.id, confirm: true}) }}" class="btn btn-danger">Supprimer</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
