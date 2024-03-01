@@ -46,6 +46,6 @@ readonly class UserDetailsSubscriber implements EventSubscriberInterface
         $event->setUser($user);
 
         $event->addLink(new MenuItemModel('profile', $user->getName(), 'admin_about_me'));
-        $event->addLink(new MenuItemModel('api-keys', 'Clés API', 'admin_api_keys'));
+        $event->addLink(new MenuItemModel('api-keys', 'API Keys', 'admin_api_keys'));
     }
 }
