@@ -1,0 +1,41 @@
+
+{% block _social_picture_widget %}
+    <div class="form-group mt-2 mb-2">
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        {{ form_widget(form.file) }}
+                        {{ form_errors(form.file) }}
+                    </div>
+                    <div class="col">
+                        {{ form_widget(form.caption) }}
+                        {{ form_errors(form.caption) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block vich_image_widget %}
+    <div class="vich-image">
+        {% if errors|length > 0 %}
+            {% set attr = attr|merge({class: (attr.class|default('') ~ ' is-invalid')|trim}) %}
+        {% endif %}
+
+        {% if image_uri %}
+            <div id="show-picture">
+                <a href="{{ asset_helper is same as(true) ? asset(image_uri) : image_uri }}" target="_blank" download>
+                    <img src="{{ asset_helper is same as(true) ? asset(image_uri) : image_uri }}" class="vich-image-pic"  alt="" />
+                </a>
+                <button type="button" id="edit-btn" data-action="edit" class="btn btn-dark"><i class="fas fa-edit fa-xs"></i></button>
+            </div>
+            <div id="edit-picture">
+                {{ form_widget(form.file, {attr: attr}) }}
+            </div>
+        {% else %}
+            {{ form_widget(form.file, {attr: attr}) }}
+        {% endif %}
+    </div>
+{% endblock %}

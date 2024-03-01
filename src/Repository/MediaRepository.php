@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Media;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -23,6 +24,13 @@ class MediaRepository extends ServiceEntityRepository
     public function findAll(): array
     {
         return $this->findBy([], ['id' => 'DESC']);
+    }
+
+    public function findAllQuery(): Query
+    {
+        return $this->createQueryBuilder('m')
+                     ->orderBy('m.id', 'DESC')
+                     ->getQuery();
     }
 
     public function save(Media $entity, bool $flush = false): void

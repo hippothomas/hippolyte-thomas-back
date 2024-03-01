@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Media;
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -31,6 +32,18 @@ class PostRepository extends ServiceEntityRepository
                      ->where('p.published IS NOT NULL')
                      ->where('p.published < :now')
                      ->setParameter('now', new \DateTime())
+                     ->orderBy('p.id', 'DESC')
+                     ->getQuery()
+                     ->getResult();
+    }
+
+    public function findByMedia(Media $media): mixed
+    {
+        return $this->createQueryBuilder('p')
+                     ->andWhere('p.featureImage = :media')
+                     ->orWhere('p.content LIKE :filename')
+                     ->setParameter('media', $media)
+                     ->setParameter('filename', '%'.$media->getFileName().'%')
                      ->orderBy('p.id', 'DESC')
                      ->getQuery()
                      ->getResult();
