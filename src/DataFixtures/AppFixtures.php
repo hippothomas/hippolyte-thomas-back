@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\AboutMe;
+use App\Entity\ApiKey;
 use App\Entity\Media;
 use App\Entity\Project;
 use App\Entity\Social;
@@ -101,6 +102,14 @@ class AppFixtures extends Fixture
              ->setRoles(['ROLE_ADMIN']);
 
         $manager->persist($user);
+
+        // Generating API Keys
+        $api_key = new ApiKey();
+
+        $api_key->setKey('00000000-0000-0000-0000-000000000000')
+                ->setAccount($user);
+
+        $manager->persist($api_key);
 
         $manager->flush();
     }
