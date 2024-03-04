@@ -31,6 +31,19 @@ class AppFixtures extends Fixture
             'tests/picture5.jpg',
         ];
 
+        $published_dates = [
+            null,
+            new \DateTime('-1 month'),
+            new \DateTime('-1 week'),
+            new \DateTime('-1 day'),
+            new \DateTime('-1 hour'),
+            new \DateTime('now'),
+            new \DateTime('+1 day'),
+            new \DateTime('+1 week'),
+            new \DateTime('+1 month'),
+            new \DateTime('+1 year'),
+        ];
+
         // Adding profile picture for AboutMe
         $picture = new Media();
         $picture->setFileName($test_pictures[mt_rand(0, count($test_pictures) - 1)])
@@ -78,7 +91,8 @@ class AppFixtures extends Fixture
             $name = implode(' ', (array) $faker->words(3));
             $project->setName($name)
                     ->setIntroduction($faker->sentence(10))
-                    ->setDescription('<p>'.implode('</p><p>', (array) $faker->paragraphs(5)).'</p>');
+                    ->setDescription('<p>'.implode('</p><p>', (array) $faker->paragraphs(5)).'</p>')
+                    ->setPublished($published_dates[$i]);
 
             // Adding random technologies
             for ($j = 1; $j < mt_rand(1, 5); ++$j) {
@@ -107,19 +121,6 @@ class AppFixtures extends Fixture
 
             $tags[] = $tag;
         }
-
-        $published_dates = [
-            null,
-            new \DateTime('-1 month'),
-            new \DateTime('-1 week'),
-            new \DateTime('-1 day'),
-            new \DateTime('-1 hour'),
-            new \DateTime('now'),
-            new \DateTime('+1 day'),
-            new \DateTime('+1 week'),
-            new \DateTime('+1 month'),
-            new \DateTime('+1 year'),
-        ];
 
         // Generating Posts
         for ($i = 0; $i < 10; ++$i) {
