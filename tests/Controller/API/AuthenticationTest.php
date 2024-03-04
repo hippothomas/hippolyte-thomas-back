@@ -3,6 +3,7 @@
 namespace App\Tests\Controller\API;
 
 use PHPUnit\Framework\Attributes\DataProvider;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class AuthenticationTest extends WebTestCase
@@ -11,13 +12,20 @@ class AuthenticationTest extends WebTestCase
         '/v2/health',
     ];
 
-    public static function provideApiEndpoint(): array
+    /**
+     * @return string[][]
+     */
+    public static function provideApiEndpoints(): array
     {
         $api_endpoints = [];
 
         // Retrieve all api routes with no path variables
-        $container = static::getContainer()->get('router');
-        $routes = $container->getRouteCollection()->all();
+        $router = static::getContainer()->get('router');
+        if (!$router instanceof Router) {
+            return [];
+        }
+
+        $routes = $router->getRouteCollection()->all();
         foreach ($routes as $route) {
             if (str_starts_with($route->getPath(), '/v2/')
                 && empty($route->compile()->getPathVariables())
@@ -30,7 +38,7 @@ class AuthenticationTest extends WebTestCase
         return $api_endpoints;
     }
 
-    #[DataProvider('provideApiEndpoint')]
+    #[DataProvider('provideApiEndpoints')]
     public function testWithoutApiKey(string $endpoint): void
     {
         $client = static::createClient();
@@ -38,7 +46,7 @@ class AuthenticationTest extends WebTestCase
         $this->assertResponseStatusCodeSame(401);
     }
 
-    #[DataProvider('provideApiEndpoint')]
+    #[DataProvider('provideApiEndpoints')]
     public function testWithEmptyApiKey(string $endpoint): void
     {
         $client = static::createClient();
@@ -46,7 +54,7 @@ class AuthenticationTest extends WebTestCase
         $this->assertResponseStatusCodeSame(401);
     }
 
-    #[DataProvider('provideApiEndpoint')]
+    #[DataProvider('provideApiEndpoints')]
     public function testWithInvalidApiKey(string $endpoint): void
     {
         $client = static::createClient();
@@ -54,7 +62,7 @@ class AuthenticationTest extends WebTestCase
         $this->assertResponseStatusCodeSame(401);
     }
 
-    #[DataProvider('provideApiEndpoint')]
+    #[DataProvider('provideApiEndpoints')]
     public function testWithValidUuidApiKey(string $endpoint): void
     {
         $client = static::createClient();
@@ -62,7 +70,7 @@ class AuthenticationTest extends WebTestCase
         $this->assertResponseStatusCodeSame(401);
     }
 
-    #[DataProvider('provideApiEndpoint')]
+    #[DataProvider('provideApiEndpoints')]
     public function testWithExistingApiKey(string $endpoint): void
     {
         $client = static::createClient();
