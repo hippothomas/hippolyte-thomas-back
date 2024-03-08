@@ -24,7 +24,7 @@ WORKDIR /var/www/html
 COPY . .
 
 # Copy assets
-COPY --from=npm /app/public/build/ /app/public/build/
+COPY --from=npm /app/public/build/ /var/www/html/public/build/
 
 ## Set default php.ini
 RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
