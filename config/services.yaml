@@ -7,6 +7,11 @@ parameters:
     app.register: '%env(APP_REGISTER)%'
     assets.url: '%env(AWS_PUBLIC_URL)%/assets'
 
+when@prod:
+    parameters:
+        router.request_context.scheme: 'https'
+        asset.request_context.secure: true
+
 twig:
     globals:
         assets_url: '%assets.url%'
