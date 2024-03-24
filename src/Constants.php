@@ -8,11 +8,11 @@ class Constants
      * The current release version
      * Follows the Semantic Versioning strategy: https://semver.org/.
      */
-    public const string VERSION = '2.0.1';
+    public const string VERSION = '2.0.2';
     /**
      * The current release: major * 10000 + minor * 100 + patch.
      */
-    public const int VERSION_ID = 20001;
+    public const int VERSION_ID = 20002;
     /**
      * Main Website URL.
      */
