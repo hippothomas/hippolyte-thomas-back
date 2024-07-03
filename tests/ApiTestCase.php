@@ -40,8 +40,8 @@ abstract class ApiTestCase extends WebTestCase
             return $property->name;
         }, $cls->getProperties());
         // Remove false value
-        $properties = array_filter($properties, function ($e) {
-            return $e;
+        $properties = array_filter($properties, function (string|false $e) {
+            return false !== $e;
         });
 
         // Check if each class property is present in our JSON Object
