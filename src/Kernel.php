@@ -17,7 +17,7 @@ class Kernel extends BaseKernel
     protected function build(ContainerBuilder $container): void
     {
         // fixing issue: https://github.com/doctrine/orm/issues/8893
-        $container->addCompilerPass(new class() implements CompilerPassInterface {
+        $container->addCompilerPass(new class implements CompilerPassInterface {
             public function process(ContainerBuilder $container): void
             {
                 $container->getDefinition('doctrine.orm.default_configuration')

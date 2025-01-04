@@ -15,7 +15,7 @@ readonly class UserDetailsSubscriber implements EventSubscriberInterface
     public function __construct(
         private Security $security,
         private AboutMeRepository $aboutMeRepository,
-        private string $assetsUrl
+        private string $assetsUrl,
     ) {
     }
 

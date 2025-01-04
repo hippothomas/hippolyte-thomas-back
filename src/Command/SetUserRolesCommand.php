@@ -18,7 +18,7 @@ class SetUserRolesCommand extends Command
     ];
 
     public function __construct(
-        private readonly UserRepository $repository
+        private readonly UserRepository $repository,
     ) {
         parent::__construct();
     }
