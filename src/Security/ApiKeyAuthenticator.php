@@ -20,7 +20,7 @@ use Symfony\Component\Uid\Uuid;
 class ApiKeyAuthenticator extends AbstractAuthenticator
 {
     public function __construct(
-        private readonly EntityManagerInterface $em
+        private readonly EntityManagerInterface $em,
     ) {
     }
 

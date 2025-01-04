@@ -232,7 +232,7 @@ class Project
         return $this->published;
     }
 
-    public function setPublished(\DateTimeInterface $published = null): self
+    public function setPublished(?\DateTimeInterface $published = null): self
     {
         $this->published = $published;
 

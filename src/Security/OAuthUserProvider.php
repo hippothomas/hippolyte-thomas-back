@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 class OAuthUserProvider implements UserProviderInterface, OAuthAwareUserProviderInterface
 {
     public function __construct(
-        private readonly UserRepository $repository
+        private readonly UserRepository $repository,
     ) {
     }
 
